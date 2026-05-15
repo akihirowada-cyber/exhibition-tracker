@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>展示会タイムトラッカー</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --bg:#0f1117;--surface:#1a1d2e;--surface2:#252840;
+    --accent:#6c63ff;--accent2:#ff6584;--accent3:#43e97b;
+    --text:#e8eaf6;--text-muted:#8890b5;--border:#2d3158;
+    --shadow:0 8px 32px rgba(0,0,0,.4);
+  }
+  body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px;}
+  h1{text-align:center;font-size:1.6rem;font-weight:700;letter-spacing:.05em;margin-bottom:6px;background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .subtitle{text-align:center;color:var(--text-muted);font-size:.85rem;margin-bottom:24px;}
+
+  /* ===== SETUP ===== */
+  #setup-panel{max-width:680px;margin:0 auto 32px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:var(--shadow);}
+  .setup-title{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:18px;}
+  .form-row{display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+  .form-group{display:flex;flex-direction:column;gap:6px;flex:1;min-width:140px;}
+  label{font-size:.8rem;color:var(--text-muted);font-weight:500;letter-spacing:.04em;}
+  input[type="number"],input[type="time"],input[type="date"],input[type="text"]{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:1rem;outline:none;transition:border-color .2s;width:100%;}
+  input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15);}
+  #days-container{margin:16px 0;display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto;}
+  .day-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border);flex-wrap:wrap;}
+  .day-label{font-size:.85rem;font-weight:600;color:var(--accent);min-width:50px;}
+  .day-row input{font-size:.9rem;padding:8px 10px;flex:1;min-width:110px;}
+  .sep{color:var(--text-muted);font-size:.85rem;white-space:nowrap;}
+  .toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .toggle{position:relative;width:44px;height:24px;}
+  .toggle input{opacity:0;width:0;height:0;}
+  .toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--surface2);border-radius:24px;transition:.2s;border:1px solid var(--border);}
+  .toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:var(--text-muted);border-radius:50%;transition:.2s;}
+  .toggle input:checked+.toggle-slider{background:var(--accent);border-color:var(--accent);}
+  .toggle input:checked+.toggle-slider::before{transform:translateX(20px);background:white;}
+  .toggle-label{font-size:.85rem;color:var(--text-muted);}
+  .btn-start{width:100%;padding:14px;background:linear-gradient(135deg,#6c63ff,#9c63ff);border:none;border-radius:12px;color:white;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.05em;transition:opacity .2s,transform .1s;}
+  .btn-start:hover{opacity:.9;transform:translateY(-1px);}
+
+  /* ===== DASHBOARD ===== */
+  #dashboard{display:none;max-width:900px;margin:0 auto;}
+  .dashboard-header{text-align:center;margin-bottom:20px;}
+  .event-name{font-size:1.3rem;font-weight:700;}
+  .current-time{font-size:2.8rem;font-weight:800;letter-spacing:.06em;background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0;}
+  .current-date{font-size:.9rem;color:var(--text-muted);}
+  .status-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:600;margin-top:6px;letter-spacing:.05em;}
+  .status-open{background:rgba(67,233,123,.15);color:var(--accent3);border:1px solid rgba(67,233,123,.3);}
+  .status-closed{background:rgba(255,101,132,.15);color:var(--accent2);border:1px solid rgba(255,101,132,.3);}
+  .status-upcoming{background:rgba(108,99,255,.15);color:var(--accent);border:1px solid rgba(108,99,255,.3);}
+  .status-ended{background:rgba(136,144,181,.15);color:var(--text-muted);border:1px solid var(--border);}
+
+  /* PiP button */
+  .pip-btn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 20px;background:linear-gradient(135deg,#252840,#1a1d2e);border:1px solid var(--accent);border-radius:30px;color:var(--accent);font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;letter-spacing:.04em;}
+  .pip-btn:hover{background:var(--accent);color:white;box-shadow:0 0 16px rgba(108,99,255,.4);}
+  .pip-btn svg{width:16px;height:16px;flex-shrink:0;}
+  #pip-not-supported{display:none;font-size:.75rem;color:var(--accent2);margin-top:8px;}
+
+  .cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;}
+  .card.day::before{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
+  .card.total::before{background:linear-gradient(90deg,#ff6584,#ff9a9e);}
+  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .card-title{font-size:.8rem;color:var(--text-muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+  .card-icon{font-size:1.4rem;}
+  .big-percent{font-size:3rem;font-weight:800;line-height:1;margin-bottom:4px;}
+  .card.day .big-percent{color:#9c63ff;}
+  .card.total .big-percent{color:var(--accent2);}
+  .time-detail{font-size:.85rem;color:var(--text-muted);margin-bottom:14px;}
+  .time-detail strong{color:var(--text);}
+  .progress-wrap{background:var(--surface2);border-radius:8px;height:10px;overflow:hidden;margin-bottom:8px;}
+  .progress-bar{height:100%;border-radius:8px;transition:width .8s ease;}
+  .card.day .progress-bar{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
+  .card.total .progress-bar{background:linear-gradient(90deg,#ff6584,#ff9a9e);}
+  .progress-labels{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-muted);}
+  .remain-row{display:flex;gap:12px;margin-top:14px;}
+  .remain-chip{background:var(--surface2);border-radius:10px;padding:8px 12px;flex:1;text-align:center;}
+  .remain-chip .rc-label{font-size:.7rem;color:var(--text-muted);margin-bottom:2px;}
+  .remain-chip .rc-val{font-size:1rem;font-weight:700;}
+  .schedule-card,.lead-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:var(--shadow);}
+  .schedule-title,.lead-title{font-size:.8rem;color:var(--text-muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
+  .day-timeline{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;}
+  .day-block{flex:1;min-width:80px;border-radius:10px;padding:10px 8px;text-align:center;border:1px solid var(--border);background:var(--surface2);}
+  .day-block.today{background:rgba(108,99,255,.15);border-color:var(--accent);box-shadow:0 0 12px rgba(108,99,255,.2);}
+  .day-block.past{opacity:.5;}
+  .db-label{font-size:.7rem;color:var(--text-muted);font-weight:600;}
+  .db-date{font-size:.75rem;color:var(--text-muted);margin:2px 0;}
+  .db-time{font-size:.68rem;color:var(--text-muted);}
+  .db-pct{font-size:1.1rem;font-weight:700;margin:4px 0;}
+  .day-block.today .db-label,.day-block.today .db-pct{color:var(--accent);}
+  .lead-inputs{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+  .lead-inputs .form-group{flex:1;min-width:120px;}
+  .lead-results{display:flex;gap:10px;flex-wrap:wrap;}
+  .lead-chip{background:var(--surface2);border-radius:12px;padding:12px 16px;flex:1;min-width:130px;border:1px solid var(--border);}
+  .lc-label{font-size:.7rem;color:var(--text-muted);margin-bottom:4px;}
+  .lc-val{font-size:1.2rem;font-weight:700;}
+  .lc-val.ok{color:var(--accent3);}
+  .lc-val.warn{color:#ffd43b;}
+  .lc-val.danger{color:var(--accent2);}
+  .footer-actions{text-align:center;margin-top:10px;}
+  .btn-reset{background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text-muted);padding:8px 20px;font-size:.85rem;cursor:pointer;transition:.2s;}
+  .btn-reset:hover{border-color:var(--accent2);color:var(--accent2);}
+
+  /* ===== PiP MINI WINDOW STYLES ===== */
+  #pip-content{
+    display:none;
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    background:#0f1117;
+    color:#e8eaf6;
+    padding:16px;
+    border-radius:0;
+    min-width:320px;
+    user-select:none;
+  }
+  .pip-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .pip-event{font-size:.75rem;color:#8890b5;font-weight:600;letter-spacing:.05em;}
+  .pip-status{font-size:.7rem;padding:2px 10px;border-radius:20px;font-weight:600;}
+  .pip-clock{font-size:2rem;font-weight:800;text-align:center;background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;letter-spacing:.06em;}
+  .pip-blocks{display:flex;flex-direction:column;gap:8px;}
+  .pip-block{background:#1a1d2e;border-radius:10px;padding:10px 12px;}
+  .pip-block-label{font-size:.65rem;color:#8890b5;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px;}
+  .pip-pct-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+  .pip-pct{font-size:1.4rem;font-weight:800;}
+  .pip-remain{font-size:.75rem;color:#8890b5;}
+  .pip-bar-wrap{background:#252840;border-radius:4px;height:6px;overflow:hidden;}
+  .pip-bar{height:100%;border-radius:4px;transition:width .8s ease;}
+  .pip-block.day .pip-pct{color:#9c63ff;}
+  .pip-block.day .pip-bar{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
+  .pip-block.total .pip-pct{color:#ff6584;}
+  .pip-block.total .pip-bar{background:linear-gradient(90deg,#ff6584,#ff9a9e);}
+
+  @media(max-width:600px){.cards-grid{grid-template-columns:1fr}.current-time{font-size:2rem}}
+</style>
+</head>
+<body>
+
+<h1>🏢 展示会タイムトラッカー</h1>
+<p class="subtitle">リアルタイムで「今どこにいるか」を可視化</p>
+
+<!-- SETUP -->
+<div id="setup-panel">
+  <div class="setup-title">⚙️ 展示会設定</div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>会期日数</label>
+      <input type="number" id="num-days" min="1" max="14" value="3">
+    </div>
+    <div class="form-group" style="flex:2">
+      <label>展示会名（任意）</label>
+      <input type="text" id="event-name" placeholder="例: Japan IT Week 2026">
+    </div>
+  </div>
+  <div id="days-container"></div>
+  <div class="toggle-row">
+    <label class="toggle"><input type="checkbox" id="toggle-lead" checked><span class="toggle-slider"></span></label>
+    <span class="toggle-label">📊 リード獲得ペース計算機を表示する</span>
+  </div>
+  <button class="btn-start" onclick="startTracker()">🚀 トラッキング開始</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="dashboard-header">
+    <div class="event-name" id="d-event-name"></div>
+    <div class="current-time" id="d-clock"></div>
+    <div class="current-date" id="d-date"></div>
+    <div id="d-status" class="status-badge"></div>
+    <br>
+    <!-- PiP ボタン -->
+    <button class="pip-btn" onclick="openPiP()" id="pip-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><rect x="12" y="11" width="9" height="6" rx="1" fill="currentColor" stroke="none" opacity=".5"/>
+        <polyline points="8 17 8 21"/><line x1="5" y1="21" x2="11" y2="21"/>
+      </svg>
+      📌 他の画面に重ねて表示（PiPモード）
+    </button>
+    <div id="pip-not-supported">⚠️ このブラウザはDocument PiP非対応です（Chrome 116以上推奨）</div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card day">
+      <div class="card-header"><span class="card-title">📅 本日の進捗</span><span class="card-icon">☀️</span></div>
+      <div class="big-percent" id="d-day-pct">—</div>
+      <div class="time-detail" id="d-day-detail"></div>
+      <div class="progress-wrap"><div class="progress-bar" id="d-day-bar" style="width:0%"></div></div>
+      <div class="progress-labels"><span id="d-day-start"></span><span id="d-day-end"></span></div>
+      <div class="remain-row">
+        <div class="remain-chip"><div class="rc-label">⏱ 経過</div><div class="rc-val" id="d-day-elapsed">—</div></div>
+        <div class="remain-chip"><div class="rc-label">⏳ 残り</div><div class="rc-val" id="d-day-remain">—</div></div>
+      </div>
+    </div>
+    <div class="card total">
+      <div class="card-header"><span class="card-title">🗓 全体の進捗</span><span class="card-icon">🏁</span></div>
+      <div class="big-percent" id="d-total-pct">—</div>
+      <div class="time-detail" id="d-total-detail"></div>
+      <div class="progress-wrap"><div class="progress-bar" id="d-total-bar" style="width:0%"></div></div>
+      <div class="progress-labels"><span id="d-total-start"></span><span id="d-total-end"></span></div>
+      <div class="remain-row">
+        <div class="remain-chip"><div class="rc-label">⏱ 経過（全体）</div><div class="rc-val" id="d-total-elapsed">—</div></div>
+        <div class="remain-chip"><div class="rc-label">⏳ 残り（全体）</div><div class="rc-val" id="d-total-remain">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schedule-card">
+    <div class="schedule-title">📆 日程スケジュール</div>
+    <div class="day-timeline" id="d-timeline"></div>
+  </div>
+
+  <div class="lead-card" id="lead-section">
+    <div class="lead-title">📊 リード獲得ペース計算機</div>
+    <div class="lead-inputs">
+      <div class="form-group"><label>目標リード数</label><input type="number" id="lead-target" min="1" value="100" oninput="updateLead()"></div>
+      <div class="form-group"><label>現在の獲得数</label><input type="number" id="lead-current" min="0" value="0" oninput="updateLead()"></div>
+    </div>
+    <div class="lead-results">
+      <div class="lead-chip"><div class="lc-label">🎯 達成率</div><div class="lc-val" id="lr-achievement">—</div></div>
+      <div class="lead-chip"><div class="lc-label">⚡ 今のペース（/h）</div><div class="lc-val" id="lr-pace">—</div></div>
+      <div class="lead-chip"><div class="lc-label">📈 必要ペース（/h）</div><div class="lc-val" id="lr-needed">—</div></div>
+      <div class="lead-chip"><div class="lc-label">✅ 見込み着地</div><div class="lc-val" id="lr-forecast">—</div></div>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <button class="btn-reset" onclick="resetTracker()">⚙️ 設定に戻る</button>
+  </div>
+</div>
+
+<!-- PiP用コンテンツ（hidden、JS でPiPウィンドウに移植） -->
+<div id="pip-content">
+  <div class="pip-header">
+    <span class="pip-event" id="pip-event-name"></span>
+    <span class="pip-status" id="pip-status-badge"></span>
+  </div>
+  <div class="pip-clock" id="pip-clock"></div>
+  <div class="pip-blocks">
+    <div class="pip-block day">
+      <div class="pip-block-label">📅 本日</div>
+      <div class="pip-pct-row">
+        <span class="pip-pct" id="pip-day-pct">—</span>
+        <span class="pip-remain" id="pip-day-remain"></span>
+      </div>
+      <div class="pip-bar-wrap"><div class="pip-bar" id="pip-day-bar" style="width:0%"></div></div>
+    </div>
+    <div class="pip-block total">
+      <div class="pip-block-label">🗓 全体</div>
+      <div class="pip-pct-row">
+        <span class="pip-pct" id="pip-total-pct">—</span>
+        <span class="pip-remain" id="pip-total-remain"></span>
+      </div>
+      <div class="pip-bar-wrap"><div class="pip-bar" id="pip-total-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let config=null, timerInterval=null, pipWin=null, pipInterval=null;
+
+// ===== SETUP =====
+function buildDayRows(){
+  const n=parseInt(document.getElementById('num-days').value)||1;
+  const container=document.getElementById('days-container');
+  const today=new Date();
+  while(container.children.length<n){
+    const i=container.children.length;
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    const dateStr=d.toISOString().slice(0,10);
+    const row=document.createElement('div');row.className='day-row';
+    row.innerHTML=`<span class="day-label">Day ${i+1}</span>
+      <input type="date" value="${dateStr}" class="d-date">
+      <span class="sep">開場</span><input type="time" value="10:00" class="d-start">
+      <span class="sep">〜</span><input type="time" value="17:00" class="d-end">`;
+    container.appendChild(row);
+  }
+  while(container.children.length>n)container.removeChild(container.lastChild);
+}
+document.getElementById('num-days').addEventListener('input',buildDayRows);
+buildDayRows();
+
+function startTracker(){
+  const rows=document.querySelectorAll('.day-row');
+  const days=[];
+  for(const row of rows){
+    const date=row.querySelector('.d-date').value;
+    const start=row.querySelector('.d-start').value;
+    const end=row.querySelector('.d-end').value;
+    if(!date||!start||!end){alert('全ての日程を入力してください');return;}
+    days.push({date,start,end});
+  }
+  days.sort((a,b)=>a.date.localeCompare(b.date));
+  config={eventName:document.getElementById('event-name').value||'展示会',days,showLead:document.getElementById('toggle-lead').checked};
+  document.getElementById('setup-panel').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  document.getElementById('lead-section').style.display=config.showLead?'block':'none';
+  document.getElementById('d-event-name').textContent=config.eventName;
+  document.getElementById('pip-event-name').textContent=config.eventName;
+
+  // PiPサポートチェック
+  if(!('documentPictureInPicture' in window)){
+    document.getElementById('pip-btn').style.display='none';
+    document.getElementById('pip-not-supported').style.display='block';
+  }
+
+  buildTimeline();updateDashboard();
+  timerInterval=setInterval(updateDashboard,1000);
+}
+
+// ===== HELPERS =====
+function pDT(date,time){return new Date(`${date}T${time}:00`);}
+function fDur(ms){
+  if(ms<0)ms=0;
+  const m=Math.floor(ms/60000),h=Math.floor(m/60),mm=m%60;
+  return h>0?`${h}時間${mm}分`:`${mm}分`;
+}
+function pct(v,t){return t<=0?0:Math.min(100,Math.max(0,v/t*100));}
+
+// ===== TIMELINE =====
+function buildTimeline(){
+  const c=document.getElementById('d-timeline');c.innerHTML='';
+  config.days.forEach((d,i)=>{
+    const b=document.createElement('div');b.className='day-block';b.id=`db-${i}`;
+    b.innerHTML=`<div class="db-label">Day ${i+1}</div><div class="db-date">${d.date.slice(5).replace('-','/')}</div><div class="db-time">${d.start}〜${d.end}</div><div class="db-pct" id="dbp-${i}">—</div>`;
+    c.appendChild(b);
+  });
+}
+
+// ===== MAIN UPDATE =====
+function calcState(){
+  const now=new Date(),days=config.days;
+  const gS=pDT(days[0].date,days[0].start),gE=pDT(days[days.length-1].date,days[days.length-1].end);
+  const tSpan=gE-gS,tElap=Math.min(Math.max(0,now-gS),tSpan),tPct=pct(tElap,tSpan);
+  const todayStr=now.toISOString().slice(0,10);
+  const ti=days.findIndex(d=>d.date===todayStr);
+  let dPct=0,dElap=0,dSpan=0,dRemain=0,dStart='',dEnd='',status='',sCls='',dDetail='';
+
+  if(ti>=0){
+    const td=days[ti];
+    const dS=pDT(td.date,td.start),dE=pDT(td.date,td.end);
+    dSpan=dE-dS;dElap=now-dS;dPct=pct(dElap,dSpan);dRemain=Math.max(0,dE-now);
+    dStart=td.start;dEnd=td.end;
+    if(now<dS){dDetail=`開場まで <strong>${fDur(dS-now)}</strong>`;status='開場前';sCls='status-upcoming';}
+    else if(now>dE){dDetail='本日の展示会は終了しました';status='本日終了';sCls='status-closed';}
+    else{dDetail=`本日 <strong>${fDur(dSpan)}</strong> のうち <strong>${fDur(dElap)}</strong> 経過`;status='🟢 開催中';sCls='status-open';}
+  } else {
+    if(todayStr<days[0].date){dDetail=`開催まで <strong>${fDur(gS-now)}</strong>`;status='開催前';sCls='status-upcoming';}
+    else if(todayStr>days[days.length-1].date){dDetail='展示会は終了しました';status='終了';sCls='status-ended';}
+    else{const next=days.find(d=>d.date>todayStr);dDetail=next?`次の開催日まで <strong>${fDur(pDT(next.date,next.start)-now)}</strong>`:'休日';status='休日';sCls='status-closed';}
+  }
+  return{now,days,gS,gE,tSpan,tElap,tPct,todayStr,ti,dPct,dElap,dSpan,dRemain,dStart,dEnd,status,sCls,dDetail};
+}
+
+function updateDashboard(){
+  const s=calcState();
+  const{now,days,gS,gE,tSpan,tElap,tPct,todayStr,ti,dPct,dElap,dSpan,dRemain,dStart,dEnd,status,sCls,dDetail}=s;
+
+  document.getElementById('d-clock').textContent=now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('d-date').textContent=now.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+
+  // Total
+  document.getElementById('d-total-pct').textContent=tPct.toFixed(1)+'%';
+  document.getElementById('d-total-bar').style.width=tPct+'%';
+  document.getElementById('d-total-start').textContent=days[0].date.slice(5).replace('-','/')+' '+days[0].start;
+  document.getElementById('d-total-end').textContent=days[days.length-1].date.slice(5).replace('-','/')+' '+days[days.length-1].end;
+  document.getElementById('d-total-elapsed').textContent=tElap>0?fDur(tElap):'未開始';
+  document.getElementById('d-total-remain').textContent=gE>now?fDur(gE-now):'終了';
+  document.getElementById('d-total-detail').innerHTML=`全体 <strong>${fDur(tSpan)}</strong> のうち <strong>${fDur(tElap)}</strong> 経過`;
+
+  // Day
+  document.getElementById('d-day-pct').textContent=ti>=0?dPct.toFixed(1)+'%':'—';
+  document.getElementById('d-day-bar').style.width=(ti>=0?dPct:0)+'%';
+  document.getElementById('d-day-start').textContent=dStart;
+  document.getElementById('d-day-end').textContent=dEnd;
+  document.getElementById('d-day-elapsed').textContent=ti>=0&&dElap>0?fDur(dElap):'—';
+  document.getElementById('d-day-remain').textContent=ti>=0?fDur(dRemain):'—';
+  document.getElementById('d-day-detail').innerHTML=dDetail;
+
+  // Status
+  const el=document.getElementById('d-status');el.textContent=status;el.className='status-badge '+sCls;
+
+  // Timeline
+  days.forEach((d,i)=>{
+    const dS=pDT(d.date,d.start),dE=pDT(d.date,d.end);
+    let p=0,cls='day-block';
+    if(d.date<todayStr){p=100;cls+=' past';}
+    else if(d.date===todayStr){p=pct(now-dS,dE-dS);cls+=' today';}
+    document.getElementById(`db-${i}`).className=cls;
+    document.getElementById(`dbp-${i}`).textContent=p.toFixed(0)+'%';
+  });
+
+  // PiP mirror
+  updatePiPContent(s);
+
+  if(config.showLead)updateLead();
+}
+
+// ===== PiP CONTENT UPDATE =====
+function updatePiPContent(s){
+  const{now,tPct,dPct,dRemain,gE,status,sCls}=s;
+  document.getElementById('pip-clock').textContent=now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('pip-day-pct').textContent=s.ti>=0?dPct.toFixed(1)+'%':'—';
+  document.getElementById('pip-day-bar').style.width=(s.ti>=0?dPct:0)+'%';
+  document.getElementById('pip-day-remain').textContent=s.ti>=0?'残り '+fDur(dRemain):'';
+  document.getElementById('pip-total-pct').textContent=tPct.toFixed(1)+'%';
+  document.getElementById('pip-total-bar').style.width=tPct+'%';
+  document.getElementById('pip-total-remain').textContent=gE>now?'残り '+fDur(gE-now):'終了';
+  const sb=document.getElementById('pip-status-badge');
+  sb.textContent=status;sb.className='pip-status '+sCls;
+}
+
+// ===== OPEN PiP =====
+async function openPiP(){
+  if(!('documentPictureInPicture' in window)){alert('このブラウザはDocument PiP未対応です');return;}
+  if(pipWin&&!pipWin.closed){pipWin.close();pipWin=null;return;}
+
+  try{
+    pipWin=await window.documentPictureInPicture.requestWindow({width:340,height:200});
+
+    // CSSを注入
+    const style=pipWin.document.createElement('style');
+    style.textContent=`
+      *{box-sizing:border-box;margin:0;padding:0;}
+      body{background:#0f1117;color:#e8eaf6;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;padding:16px;overflow:hidden;}
+      .pip-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+      .pip-event{font-size:.75rem;color:#8890b5;font-weight:600;letter-spacing:.05em;}
+      .pip-status{font-size:.7rem;padding:2px 10px;border-radius:20px;font-weight:600;}
+      .status-open{background:rgba(67,233,123,.15);color:#43e97b;border:1px solid rgba(67,233,123,.3);}
+      .status-closed{background:rgba(255,101,132,.15);color:#ff6584;border:1px solid rgba(255,101,132,.3);}
+      .status-upcoming{background:rgba(108,99,255,.15);color:#6c63ff;border:1px solid rgba(108,99,255,.3);}
+      .status-ended{background:rgba(136,144,181,.15);color:#8890b5;border:1px solid #2d3158;}
+      .pip-clock{font-size:2rem;font-weight:800;text-align:center;background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;letter-spacing:.06em;}
+      .pip-blocks{display:flex;flex-direction:column;gap:8px;}
+      .pip-block{background:#1a1d2e;border-radius:10px;padding:10px 12px;}
+      .pip-block-label{font-size:.65rem;color:#8890b5;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px;}
+      .pip-pct-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+      .pip-pct{font-size:1.4rem;font-weight:800;}
+      .pip-remain{font-size:.75rem;color:#8890b5;}
+      .pip-bar-wrap{background:#252840;border-radius:4px;height:6px;overflow:hidden;}
+      .pip-bar{height:100%;border-radius:4px;transition:width .8s ease;}
+      .pip-block.day .pip-pct{color:#9c63ff;}
+      .pip-block.day .pip-bar{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
+      .pip-block.total .pip-pct{color:#ff6584;}
+      .pip-block.total .pip-bar{background:linear-gradient(90deg,#ff6584,#ff9a9e);}
+    `;
+    pipWin.document.head.appendChild(style);
+
+    // コンテンツをクローンして移植
+    const src=document.getElementById('pip-content').cloneNode(true);
+    src.style.display='block';
+    src.id='pip-content-live';
+    pipWin.document.body.appendChild(src);
+
+    // PiPウィンドウ内の要素を毎秒更新
+    function updatePiPWindow(){
+      if(!pipWin||pipWin.closed)return;
+      const s=calcState();
+      const{now,tPct,dPct,dRemain,gE,status,sCls}=s;
+      const g=id=>pipWin.document.getElementById(id);
+      const set=(id,v)=>{const e=g(id);if(e)e.textContent=v;};
+      const setW=(id,v)=>{const e=g(id);if(e)e.style.width=v;};
+      set('pip-clock',now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'}));
+      set('pip-day-pct',s.ti>=0?dPct.toFixed(1)+'%':'—');
+      setW('pip-day-bar',(s.ti>=0?dPct:0)+'%');
+      set('pip-day-remain',s.ti>=0?'残り '+fDur(dRemain):'');
+      set('pip-total-pct',tPct.toFixed(1)+'%');
+      setW('pip-total-bar',tPct+'%');
+      set('pip-total-remain',gE>now?'残り '+fDur(gE-now):'終了');
+      set('pip-event-name',config.eventName);
+      const sb=g('pip-status-badge');
+      if(sb){sb.textContent=status;sb.className='pip-status '+sCls;}
+    }
+    updatePiPWindow();
+    pipInterval=setInterval(updatePiPWindow,1000);
+
+    pipWin.addEventListener('pagehide',()=>{clearInterval(pipInterval);pipWin=null;});
+  }catch(e){
+    console.error(e);
+    alert('PiPを開けませんでした: '+e.message);
+  }
+}
+
+// ===== LEAD =====
+function updateLead(){
+  if(!config)return;
+  const target=parseInt(document.getElementById('lead-target').value)||0;
+  const current=parseInt(document.getElementById('lead-current').value)||0;
+  const now=new Date(),days=config.days;
+  let elMin=0,remMin=0;
+  for(const d of days){
+    const s=pDT(d.date,d.start),e=pDT(d.date,d.end);
+    if(now>s)elMin+=(Math.min(now,e)-s)/60000;
+    if(now<e)remMin+=(e-Math.max(now,s))/60000;
+  }
+  const ach=target>0?(current/target*100):0;
+  document.getElementById('lr-achievement').textContent=ach.toFixed(1)+'%';
+  const elH=elMin/60,remH=remMin/60;
+  const pace=elH>0?current/elH:0;
+  const needed=remH>0?Math.max(0,target-current)/remH:Infinity;
+  const forecast=pace*(elH+remH);
+  document.getElementById('lr-pace').textContent=elH>0?pace.toFixed(1)+' 件/h':'—';
+  const ne=document.getElementById('lr-needed');
+  if(remH<=0){ne.textContent='—';ne.className='lc-val';}
+  else{ne.textContent=needed.toFixed(1)+' 件/h';ne.className='lc-val '+(needed<=pace?'ok':needed<=pace*1.3?'warn':'danger');}
+  const fe=document.getElementById('lr-forecast');
+  fe.textContent=Math.round(forecast)+' 件';
+  fe.className='lc-val '+(forecast>=target?'ok':forecast>=target*.8?'warn':'danger');
+}
+
+// ===== RESET =====
+function resetTracker(){
+  clearInterval(timerInterval);
+  if(pipWin&&!pipWin.closed){clearInterval(pipInterval);pipWin.close();}
+  config=null;
+  document.getElementById('setup-panel').style.display='block';
+  document.getElementById('dashboard').style.display='none';
+}
+</script>
+</body>
+</html>
