@@ -312,14 +312,38 @@ function buildDayRows(){
     const d=new Date(today);d.setDate(today.getDate()+i);
     const dateStr=d.toISOString().slice(0,10);
     const row=document.createElement('div');row.className='day-row';
+    const isFirst=i===0;
     row.innerHTML=`<span class="day-label">Day ${i+1}</span>
-      <input type="date" value="${dateStr}" class="d-date">
-      <span class="sep">開場</span><input type="time" value="10:00" class="d-start">
-      <span class="sep">〜</span><input type="time" value="17:00" class="d-end">`;
+      <input type="date" value="${dateStr}" class="d-date" ${isFirst?'oninput="autoFillDates()"':''}>
+      <span class="sep">開場</span><input type="time" value="10:00" class="d-start" ${isFirst?'oninput="autoFillTimes()"':''}>
+      <span class="sep">〜</span><input type="time" value="17:00" class="d-end" ${isFirst?'oninput="autoFillTimes()"':''}>`;
     container.appendChild(row);
   }
   while(container.children.length>n)container.removeChild(container.lastChild);
   buildTargetsTable();
+}
+
+// 1日目の日付変更で2日目以降を連続で自動入力
+function autoFillDates(){
+  const rows=document.querySelectorAll('.day-row');
+  const firstDate=rows[0].querySelector('.d-date').value;
+  if(!firstDate)return;
+  const base=new Date(firstDate);
+  for(let i=1;i<rows.length;i++){
+    const d=new Date(base);d.setDate(base.getDate()+i);
+    rows[i].querySelector('.d-date').value=d.toISOString().slice(0,10);
+  }
+}
+
+// 1日目の開場時間変更で2日目以降を同じ時間に自動入力
+function autoFillTimes(){
+  const rows=document.querySelectorAll('.day-row');
+  const firstStart=rows[0].querySelector('.d-start').value;
+  const firstEnd=rows[0].querySelector('.d-end').value;
+  for(let i=1;i<rows.length;i++){
+    rows[i].querySelector('.d-start').value=firstStart;
+    rows[i].querySelector('.d-end').value=firstEnd;
+  }
 }
 
 function buildTargetsTable(){
