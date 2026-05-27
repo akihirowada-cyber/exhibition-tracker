@@ -196,7 +196,8 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
     <div class="setup-title">📊 データ連携方法</div>
     <div class="mode-tabs">
       <div class="mode-tab active" id="tab-manual" onclick="setMode('manual')">✏️ 手入力</div>
-      <div class="mode-tab" id="tab-ss" onclick="setMode('ss')">🔗 Googleスプレッドシート連携</div>
+      <div class="mode-tab" id="tab-ss" onclick="setMode('ss')">🔗 スプレッドシート連携（公開）</div>
+      <div class="mode-tab" id="tab-gas" onclick="setMode('gas')">⚡ GAS連携（社内シート対応）</div>
     </div>
 
     <!-- 手入力モード -->
@@ -231,6 +232,27 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
         担当者 <code>B29〜</code>　NA個人実績 <code>J29〜</code>
       </div>
       <p class="ss-note" style="margin-top:8px;">※ 60秒ごとに自動更新されます</p>
+    </div>
+
+    <!-- GASモード -->
+    <div id="mode-gas" style="display:none;">
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>GAS Web App URL</label>
+        <input type="url" id="gas-url" placeholder="https://script.google.com/macros/s/...">
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>シート名（タブ名）※毎回変更可</label>
+        <input type="text" id="gas-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
+      </div>
+      <div class="ss-hint">
+        💡 <strong>設定手順</strong><br>
+        ① スプレッドシートを開き、メニュー「拡張機能 → Apps Script」を開く<br>
+        ② 配布した <code>gas-script.gs</code> の内容を貼り付け、<code>SHEET_NAME</code> を修正して保存<br>
+        ③「デプロイ → 新しいデプロイ」→ 種類：<strong>ウェブアプリ</strong><br>
+        ④ 実行ユーザー：<strong>自分</strong>　アクセスできるユーザー：<strong>全員</strong> に設定<br>
+        ⑤「デプロイ」を押して表示されたURLを上の入力欄に貼り付け
+      </div>
+      <p class="ss-note" style="margin-top:8px;">※ 社内限定シートでも「自分として実行」することで取得できます。60秒ごとに自動更新。</p>
     </div>
   </div>
 
@@ -341,8 +363,10 @@ function setMode(m){
   inputMode=m;
   document.getElementById('tab-manual').classList.toggle('active',m==='manual');
   document.getElementById('tab-ss').classList.toggle('active',m==='ss');
+  document.getElementById('tab-gas').classList.toggle('active',m==='gas');
   document.getElementById('mode-manual').style.display=m==='manual'?'block':'none';
   document.getElementById('mode-ss').style.display=m==='ss'?'block':'none';
+  document.getElementById('mode-gas').style.display=m==='gas'?'block':'none';
 }
 
 function buildDayRows(){
@@ -439,13 +463,15 @@ async function startTracker(){
 
   const ssUrl=document.getElementById('ss-url').value.trim();
   const ssSheet=document.getElementById('ss-sheet').value.trim();
+  const gasUrl=document.getElementById('gas-url').value.trim();
+  const gasSheet=document.getElementById('gas-sheet').value.trim();
 
-  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssUrl,ssSheet};
+  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssUrl,ssSheet,gasUrl,gasSheet};
 
   document.getElementById('setup-panel').style.display='none';
   document.getElementById('dashboard').style.display='block';
   document.getElementById('d-event-name').textContent=config.eventName;
-  document.getElementById('btn-save').style.display=inputMode==='ss'?'none':'inline-block';
+  document.getElementById('btn-save').style.display=(inputMode==='ss'||inputMode==='gas')?'none':'inline-block';
 
   if(!('documentPictureInPicture' in window)){
     document.getElementById('pip-btn').style.display='none';
@@ -457,6 +483,10 @@ async function startTracker(){
     document.getElementById('sync-bar').style.display='flex';
     await fetchSheet();
     syncInterval=setInterval(fetchSheet,60000);
+  }else if(inputMode==='gas'&&gasUrl){
+    document.getElementById('sync-bar').style.display='flex';
+    await fetchGas();
+    syncInterval=setInterval(fetchGas,60000);
   }
 
   buildTimeline();buildKpiTable();updateDashboard();
@@ -559,6 +589,49 @@ function parseSheetData(csv){
     }
   }
 
+  refreshKpiTable();
+  updateSummaryChips();
+  renderAchievers();
+  updateDashboard();
+}
+
+// ===== GAS FETCH =====
+async function fetchGas(){
+  if(!config||!config.gasUrl)return;
+  setSyncStatus('loading','取得中...');
+  try{
+    // シート名をクエリパラメータとして付与
+    const url=config.gasSheet
+      ?`${config.gasUrl}?sheet=${encodeURIComponent(config.gasSheet)}`
+      :config.gasUrl;
+    const res=await fetch(url,{redirect:'follow'});
+    if(!res.ok)throw new Error(`取得失敗 (${res.status})`);
+    const json=await res.json();
+    if(json.error)throw new Error(json.error);
+    parseGasData(json);
+    setSyncStatus('ok',`同期済み（GAS / ${config.gasSheet||'シート未指定'}）`);
+  }catch(e){
+    setSyncStatus('err','エラー: '+e.message);
+  }
+}
+
+function parseGasData(data){
+  const n=config.days.length;
+  naGoal=data.naGoal||0;
+  for(let i=0;i<Math.min(n,3);i++){
+    const d=data.days[i];
+    if(!d)continue;
+    config.targets[i].lead=d.leadTgt||0;
+    config.targets[i].na=d.naTgt||0;
+    actuals[i].lead=d.leadAct||0;
+    actuals[i].na=d.naAct||0;
+  }
+  achievers=[];
+  if(data.members&&naGoal>0){
+    data.members.forEach(m=>{
+      if(m.na>=naGoal)achievers.push({name:m.name,na:m.na});
+    });
+  }
   refreshKpiTable();
   updateSummaryChips();
   renderAchievers();
