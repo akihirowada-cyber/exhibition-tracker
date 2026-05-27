@@ -16,20 +16,28 @@ body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:var(--b
 h1{text-align:center;font-size:1.6rem;font-weight:700;letter-spacing:.05em;margin-bottom:6px;background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .subtitle{text-align:center;color:var(--text-muted);font-size:.85rem;margin-bottom:24px;}
 
-/* ===== SETUP ===== */
+/* SETUP */
 #setup-panel{max-width:720px;margin:0 auto 32px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:var(--shadow);}
-.setup-section{margin-bottom:24px;}
-.setup-title{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:14px;}
+.setup-section{margin-bottom:22px;}
+.setup-title{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .form-row{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;}
 .form-group{display:flex;flex-direction:column;gap:6px;flex:1;min-width:130px;}
 label{font-size:.78rem;color:var(--text-muted);font-weight:500;letter-spacing:.04em;}
-input[type="number"],input[type="time"],input[type="date"],input[type="text"]{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:.95rem;outline:none;transition:border-color .2s;width:100%;}
+input[type="number"],input[type="time"],input[type="date"],input[type="text"],input[type="url"]{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;color:var(--text);font-size:.95rem;outline:none;transition:border-color .2s;width:100%;}
 input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15);}
 #days-container{display:flex;flex-direction:column;gap:10px;max-height:280px;overflow-y:auto;margin-bottom:12px;}
 .day-row{display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border);flex-wrap:wrap;}
 .day-label{font-size:.85rem;font-weight:600;color:var(--accent);min-width:50px;}
 .day-row input{font-size:.88rem;padding:7px 10px;flex:1;min-width:100px;}
 .sep{color:var(--text-muted);font-size:.85rem;white-space:nowrap;}
+
+/* SS mode toggle */
+.mode-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.mode-tab{flex:1;padding:10px;border-radius:12px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text-muted);transition:.2s;text-align:center;}
+.mode-tab.active{background:rgba(108,99,255,.2);border-color:var(--accent);color:var(--accent);}
+
+.ss-hint{font-size:.78rem;color:var(--text-muted);margin-top:8px;line-height:1.6;background:var(--surface2);border-radius:10px;padding:10px 14px;border:1px solid var(--border);}
+.ss-hint code{background:rgba(108,99,255,.15);padding:2px 6px;border-radius:4px;font-size:.75rem;color:var(--accent);}
 
 /* targets table */
 .targets-table{width:100%;border-collapse:collapse;margin-top:4px;}
@@ -38,11 +46,12 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .targets-table td:first-child{text-align:left;font-size:.85rem;font-weight:600;color:var(--text-muted);white-space:nowrap;background:var(--surface2);}
 .targets-table input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 8px;color:var(--text);font-size:.9rem;width:90px;text-align:center;outline:none;}
 .targets-table input:focus{border-color:var(--accent);}
+.ss-note{font-size:.72rem;color:var(--accent3);margin-top:6px;}
 
 .btn-start{width:100%;padding:14px;background:linear-gradient(135deg,#6c63ff,#9c63ff);border:none;border-radius:12px;color:white;font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.05em;transition:opacity .2s,transform .1s;margin-top:8px;}
 .btn-start:hover{opacity:.9;transform:translateY(-1px);}
 
-/* ===== DASHBOARD ===== */
+/* DASHBOARD */
 #dashboard{display:none;max-width:1000px;margin:0 auto;}
 .dashboard-header{text-align:center;margin-bottom:20px;}
 .event-name{font-size:1.3rem;font-weight:700;}
@@ -54,9 +63,21 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .status-upcoming{background:rgba(108,99,255,.15);color:var(--accent);border:1px solid rgba(108,99,255,.3);}
 .status-ended{background:rgba(136,144,181,.15);color:var(--text-muted);border:1px solid var(--border);}
 
-.pip-btn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 20px;background:linear-gradient(135deg,#252840,#1a1d2e);border:1px solid var(--accent);border-radius:30px;color:var(--accent);font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;letter-spacing:.04em;}
-.pip-btn:hover{background:var(--accent);color:white;box-shadow:0 0 16px rgba(108,99,255,.4);}
+.pip-btn{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 20px;background:var(--surface2);border:1px solid var(--accent);border-radius:30px;color:var(--accent);font-size:.85rem;font-weight:600;cursor:pointer;transition:.2s;}
+.pip-btn:hover{background:var(--accent);color:white;}
 #pip-not-supported{display:none;font-size:.75rem;color:var(--accent2);margin-top:8px;}
+
+/* sync status */
+.sync-bar{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:8px 16px;margin-bottom:16px;font-size:.8rem;flex-wrap:wrap;}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);flex-shrink:0;}
+.sync-dot.ok{background:var(--accent3);box-shadow:0 0 6px rgba(67,233,123,.5);}
+.sync-dot.err{background:var(--accent2);}
+.sync-dot.loading{background:var(--accent4);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.sync-label{color:var(--text-muted);}
+.sync-time{margin-left:auto;color:var(--text-muted);}
+.btn-sync{margin-left:8px;background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--text-muted);padding:4px 12px;font-size:.75rem;cursor:pointer;transition:.2s;}
+.btn-sync:hover{border-color:var(--accent);color:var(--accent);}
 
 /* Time cards */
 .cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
@@ -83,7 +104,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .rc-val{font-size:.95rem;font-weight:700;}
 
 /* Schedule */
-.schedule-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);}
+.section-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);}
 .section-title{font-size:.78rem;color:var(--text-muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;}
 .day-timeline{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;}
 .day-block{flex:1;min-width:80px;border-radius:10px;padding:10px 8px;text-align:center;border:1px solid var(--border);background:var(--surface2);}
@@ -95,45 +116,42 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .db-pct{font-size:1.05rem;font-weight:700;margin:4px 0;}
 .day-block.today .db-label,.day-block.today .db-pct{color:var(--accent);}
 
-/* ===== KPI SECTION ===== */
-.kpi-section{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);}
+/* KPI */
 .kpi-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
 .kpi-tab{padding:7px 18px;border-radius:20px;font-size:.82rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text-muted);transition:.2s;}
 .kpi-tab.active.lead{background:rgba(108,99,255,.2);border-color:var(--accent);color:var(--accent);}
 .kpi-tab.active.na{background:rgba(255,212,59,.15);border-color:var(--accent4);color:var(--accent4);}
-
-/* KPI Summary row */
 .kpi-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
 .kpi-chip{background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border);text-align:center;}
 .kpi-chip-label{font-size:.68rem;color:var(--text-muted);margin-bottom:4px;letter-spacing:.05em;}
 .kpi-chip-val{font-size:1.5rem;font-weight:800;}
 .kpi-chip-sub{font-size:.72rem;color:var(--text-muted);margin-top:2px;}
-.kpi-chip.highlight-lead .kpi-chip-val{color:var(--accent);}
-.kpi-chip.highlight-na .kpi-chip-val{color:var(--accent4);}
 .kpi-chip.ok .kpi-chip-val{color:var(--accent3);}
 .kpi-chip.warn .kpi-chip-val{color:var(--accent4);}
 .kpi-chip.danger .kpi-chip-val{color:var(--accent2);}
-
-/* KPI day table */
 .kpi-day-table{width:100%;border-collapse:collapse;}
 .kpi-day-table th{font-size:.72rem;color:var(--text-muted);font-weight:600;padding:8px 10px;text-align:center;background:var(--surface2);border:1px solid var(--border);}
 .kpi-day-table td{padding:8px 10px;border:1px solid var(--border);text-align:center;font-size:.88rem;}
 .kpi-day-table tr:nth-child(even) td{background:rgba(37,40,64,.4);}
 .kpi-day-table td:first-child{font-weight:600;color:var(--accent);background:rgba(108,99,255,.08);}
-.kpi-day-table td.today-row{color:var(--text);}
-.rate-cell{font-size:.78rem;}
-.rate-ok{color:var(--accent3);}
-.rate-warn{color:var(--accent4);}
-.rate-danger{color:var(--accent2);}
-
-/* input row in table */
+.rate-cell{font-size:.82rem;}
+.rate-ok{color:var(--accent3);font-weight:700;}
+.rate-warn{color:var(--accent4);font-weight:700;}
+.rate-danger{color:var(--accent2);font-weight:700;}
 .kpi-input-cell input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 8px;color:var(--text);font-size:.88rem;width:80px;text-align:center;outline:none;}
 .kpi-input-cell input:focus{border-color:var(--accent);}
-
 .progress-wrap-sm{background:var(--surface2);border-radius:4px;height:5px;overflow:hidden;margin-top:4px;}
 .progress-bar-sm{height:100%;border-radius:4px;}
 .bar-lead{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
 .bar-na{background:linear-gradient(90deg,#ffd43b,#ffaa00);}
+
+/* 達成者ボード */
+.achievers-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.achiever-card{background:linear-gradient(135deg,rgba(67,233,123,.1),rgba(67,233,123,.05));border:1px solid rgba(67,233,123,.3);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;min-width:160px;}
+.achiever-icon{font-size:1.4rem;}
+.achiever-name{font-size:.9rem;font-weight:700;color:var(--text);}
+.achiever-num{font-size:.75rem;color:var(--accent3);}
+.no-achiever{color:var(--text-muted);font-size:.85rem;}
 
 /* footer */
 .footer-actions{text-align:center;margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
@@ -142,7 +160,6 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .btn-save{background:transparent;border:1px solid var(--accent3);border-radius:10px;color:var(--accent3);padding:8px 20px;font-size:.85rem;cursor:pointer;transition:.2s;}
 .btn-save:hover{background:var(--accent3);color:#0f1117;}
 
-/* PiP */
 #pip-content{display:none;}
 
 @media(max-width:640px){
@@ -157,7 +174,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 <h1>🏢 展示会タイムトラッカー</h1>
 <p class="subtitle">タイム進捗 × リード・NA数をリアルタイムで可視化</p>
 
-<!-- ===== SETUP ===== -->
+<!-- SETUP -->
 <div id="setup-panel">
 
   <div class="setup-section">
@@ -176,19 +193,51 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
   </div>
 
   <div class="setup-section">
-    <div class="setup-title">🎯 目標設定（日別）</div>
-    <div style="overflow-x:auto;">
-      <table class="targets-table" id="targets-table">
-        <thead id="targets-head"></thead>
-        <tbody id="targets-body"></tbody>
-      </table>
+    <div class="setup-title">📊 データ連携方法</div>
+    <div class="mode-tabs">
+      <div class="mode-tab active" id="tab-manual" onclick="setMode('manual')">✏️ 手入力</div>
+      <div class="mode-tab" id="tab-ss" onclick="setMode('ss')">🔗 Googleスプレッドシート連携</div>
+    </div>
+
+    <!-- 手入力モード -->
+    <div id="mode-manual">
+      <div style="overflow-x:auto;">
+        <table class="targets-table" id="targets-table">
+          <thead id="targets-head"></thead>
+          <tbody id="targets-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- スプレッドシートモード -->
+    <div id="mode-ss" style="display:none;">
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>スプレッドシートのURL</label>
+        <input type="url" id="ss-url" placeholder="https://docs.google.com/spreadsheets/d/...">
+      </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>シート名（タブ名）</label>
+        <input type="text" id="ss-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
+      </div>
+      <div class="ss-hint">
+        💡 <strong>設定手順</strong><br>
+        ① スプレッドシートを「リンクを知っている全員が閲覧可」に設定<br>
+        ② 上のURLにスプレッドシートのURLをそのまま貼り付け<br>
+        ③ シート名（下部タブの名前）を正確に入力<br><br>
+        📌 <strong>取得セル：</strong>
+        リード目標 <code>B11/F11/J11</code>　リード実績 <code>C11/G11/K11</code><br>
+        NA目標（日別） <code>B14/F14/J14</code>　NA実績 <code>C14/G14/K14</code><br>
+        NA個人目標 <code>B7</code>（達成者判定に使用）<br>
+        担当者 <code>B29〜</code>　NA個人実績 <code>J29〜</code>
+      </div>
+      <p class="ss-note" style="margin-top:8px;">※ 60秒ごとに自動更新されます</p>
     </div>
   </div>
 
   <button class="btn-start" onclick="startTracker()">🚀 トラッキング開始</button>
 </div>
 
-<!-- ===== DASHBOARD ===== -->
+<!-- DASHBOARD -->
 <div id="dashboard">
 
   <div class="dashboard-header">
@@ -203,7 +252,15 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
     <div id="pip-not-supported"></div>
   </div>
 
-  <!-- Time progress -->
+  <!-- Sync status bar -->
+  <div class="sync-bar" id="sync-bar" style="display:none;">
+    <div class="sync-dot" id="sync-dot"></div>
+    <span class="sync-label" id="sync-label">スプレッドシート連携中</span>
+    <span class="sync-time" id="sync-time"></span>
+    <button class="btn-sync" onclick="fetchSheet()">🔄 今すぐ更新</button>
+  </div>
+
+  <!-- Time cards -->
   <div class="cards-grid">
     <div class="card day">
       <div class="card-header"><span class="card-title">📅 本日の時間進捗</span><span class="card-icon">☀️</span></div>
@@ -230,79 +287,64 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
   </div>
 
   <!-- Schedule -->
-  <div class="schedule-card">
+  <div class="section-card">
     <div class="section-title">📆 日程スケジュール</div>
     <div class="day-timeline" id="d-timeline"></div>
   </div>
 
-  <!-- KPI Section -->
-  <div class="kpi-section">
+  <!-- KPI -->
+  <div class="section-card">
     <div class="section-title">📊 リード・NA数トラッカー</div>
-
     <div class="kpi-tabs">
       <div class="kpi-tab active lead" onclick="switchKpi('lead')">🟣 リード数</div>
       <div class="kpi-tab na" onclick="switchKpi('na')">🟡 NA数</div>
     </div>
-
-    <!-- Summary chips -->
     <div class="kpi-summary">
-      <div class="kpi-chip" id="chip-target">
-        <div class="kpi-chip-label">🎯 全体目標</div>
-        <div class="kpi-chip-val" id="chip-target-val">—</div>
-        <div class="kpi-chip-sub">件</div>
-      </div>
-      <div class="kpi-chip" id="chip-actual">
-        <div class="kpi-chip-label">✅ 現在の合計</div>
-        <div class="kpi-chip-val" id="chip-actual-val">—</div>
-        <div class="kpi-chip-sub">件</div>
-      </div>
-      <div class="kpi-chip" id="chip-rate">
-        <div class="kpi-chip-label">📈 達成率</div>
-        <div class="kpi-chip-val" id="chip-rate-val">—</div>
-        <div class="kpi-chip-sub" id="chip-rate-sub"></div>
-      </div>
-      <div class="kpi-chip" id="chip-forecast">
-        <div class="kpi-chip-label">🔮 見込み着地</div>
-        <div class="kpi-chip-val" id="chip-forecast-val">—</div>
-        <div class="kpi-chip-sub">件（ペース維持時）</div>
-      </div>
+      <div class="kpi-chip" id="chip-target"><div class="kpi-chip-label">🎯 全体目標</div><div class="kpi-chip-val" id="chip-target-val">—</div><div class="kpi-chip-sub">件</div></div>
+      <div class="kpi-chip" id="chip-actual"><div class="kpi-chip-label">✅ 現在の合計</div><div class="kpi-chip-val" id="chip-actual-val">—</div><div class="kpi-chip-sub">件</div></div>
+      <div class="kpi-chip" id="chip-rate"><div class="kpi-chip-label">📈 達成率</div><div class="kpi-chip-val" id="chip-rate-val">—</div><div class="kpi-chip-sub" id="chip-rate-sub"></div></div>
+      <div class="kpi-chip" id="chip-forecast"><div class="kpi-chip-label">🔮 見込み着地</div><div class="kpi-chip-val" id="chip-forecast-val">—</div><div class="kpi-chip-sub">件（ペース維持時）</div></div>
     </div>
-
-    <!-- Day table -->
     <div style="overflow-x:auto;">
-      <table class="kpi-day-table" id="kpi-day-table">
-        <thead>
-          <tr>
-            <th>日程</th>
-            <th>目標</th>
-            <th>実績入力</th>
-            <th>達成率</th>
-            <th>残り</th>
-            <th>進捗バー</th>
-          </tr>
-        </thead>
+      <table class="kpi-day-table">
+        <thead><tr><th>日程</th><th>目標</th><th>実績</th><th>達成率</th><th>残り</th><th>進捗</th></tr></thead>
         <tbody id="kpi-tbody"></tbody>
         <tfoot id="kpi-tfoot"></tfoot>
       </table>
     </div>
   </div>
 
+  <!-- 目標達成者ボード -->
+  <div class="section-card">
+    <div class="section-title">🏆 NA目標達成者</div>
+    <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:12px;" id="achiever-threshold"></div>
+    <div class="achievers-grid" id="achievers-grid">
+      <span class="no-achiever">データを取得中...</span>
+    </div>
+  </div>
+
   <div class="footer-actions">
-    <button class="btn-save" onclick="saveData()">💾 データを保存</button>
+    <button class="btn-save" onclick="saveData()" id="btn-save">💾 データを保存</button>
     <button class="btn-reset" onclick="resetTracker()">⚙️ 設定に戻る</button>
   </div>
 </div>
 
-<!-- PiP hidden template -->
 <div id="pip-content"></div>
 
 <script>
-let config=null, timerInterval=null, pipWin=null, pipInterval=null;
-let currentKpi='lead';
-// actuals[dayIndex] = {lead: N, na: N}
-let actuals=[];
+let config=null, timerInterval=null, syncInterval=null, pipWin=null, pipInterval=null;
+let currentKpi='lead', inputMode='manual';
+let actuals=[], achievers=[], naGoal=0;
 
 // ===== SETUP =====
+function setMode(m){
+  inputMode=m;
+  document.getElementById('tab-manual').classList.toggle('active',m==='manual');
+  document.getElementById('tab-ss').classList.toggle('active',m==='ss');
+  document.getElementById('mode-manual').style.display=m==='manual'?'block':'none';
+  document.getElementById('mode-ss').style.display=m==='ss'?'block':'none';
+}
+
 function buildDayRows(){
   const n=parseInt(document.getElementById('num-days').value)||1;
   const container=document.getElementById('days-container');
@@ -314,16 +356,15 @@ function buildDayRows(){
     const row=document.createElement('div');row.className='day-row';
     const isFirst=i===0;
     row.innerHTML=`<span class="day-label">Day ${i+1}</span>
-      <input type="date" value="${dateStr}" class="d-date" ${isFirst?'oninput="autoFillDates()"':''}>
-      <span class="sep">開場</span><input type="time" value="10:00" class="d-start" ${isFirst?'oninput="autoFillTimes()"':''}>
-      <span class="sep">〜</span><input type="time" value="17:00" class="d-end" ${isFirst?'oninput="autoFillTimes()"':''}>`;
+      <input type="date" value="${dateStr}" class="d-date"${isFirst?' oninput="autoFillDates()"':''}>
+      <span class="sep">開場</span><input type="time" value="10:00" class="d-start"${isFirst?' oninput="autoFillTimes()"':''}>
+      <span class="sep">〜</span><input type="time" value="17:00" class="d-end"${isFirst?' oninput="autoFillTimes()"':''}>`;
     container.appendChild(row);
   }
   while(container.children.length>n)container.removeChild(container.lastChild);
   buildTargetsTable();
 }
 
-// 1日目の日付変更で2日目以降を連続で自動入力
 function autoFillDates(){
   const rows=document.querySelectorAll('.day-row');
   const firstDate=rows[0].querySelector('.d-date').value;
@@ -334,15 +375,13 @@ function autoFillDates(){
     rows[i].querySelector('.d-date').value=d.toISOString().slice(0,10);
   }
 }
-
-// 1日目の開場時間変更で2日目以降を同じ時間に自動入力
 function autoFillTimes(){
   const rows=document.querySelectorAll('.day-row');
-  const firstStart=rows[0].querySelector('.d-start').value;
-  const firstEnd=rows[0].querySelector('.d-end').value;
+  const s=rows[0].querySelector('.d-start').value;
+  const e=rows[0].querySelector('.d-end').value;
   for(let i=1;i<rows.length;i++){
-    rows[i].querySelector('.d-start').value=firstStart;
-    rows[i].querySelector('.d-end').value=firstEnd;
+    rows[i].querySelector('.d-start').value=s;
+    rows[i].querySelector('.d-end').value=e;
   }
 }
 
@@ -350,40 +389,33 @@ function buildTargetsTable(){
   const n=parseInt(document.getElementById('num-days').value)||1;
   const head=document.getElementById('targets-head');
   const body=document.getElementById('targets-body');
-  let headHtml='<tr><th>指標</th>';
-  for(let i=0;i<n;i++) headHtml+=`<th>Day ${i+1}</th>`;
-  headHtml+='<th>合計</th></tr>';
-  head.innerHTML=headHtml;
-
-  const metrics=[{key:'lead',label:'🟣 リード数',default:500},{key:'na',label:'🟡 NA数',default:40}];
+  let h='<tr><th>指標</th>';
+  for(let i=0;i<n;i++)h+=`<th>Day ${i+1}</th>`;
+  h+='<th>合計</th></tr>';
+  head.innerHTML=h;
+  const metrics=[{key:'lead',label:'🟣 リード数',def:500},{key:'na',label:'🟡 NA数',def:40}];
   body.innerHTML='';
   metrics.forEach(m=>{
     let row=`<tr><td>${m.label}</td>`;
-    let totalId=`tgt-${m.key}-total`;
-    for(let i=0;i<n;i++){
-      row+=`<td><input type="number" id="tgt-${m.key}-${i}" value="${m.default}" min="0" oninput="updateTargetTotal('${m.key}')"></td>`;
-    }
-    row+=`<td id="${totalId}" style="font-weight:700;color:var(--accent);">${m.default*n}</td></tr>`;
+    for(let i=0;i<n;i++)row+=`<td><input type="number" id="tgt-${m.key}-${i}" value="${m.def}" min="0" oninput="updateTargetTotal('${m.key}')"></td>`;
+    row+=`<td id="tgt-${m.key}-total" style="font-weight:700;color:var(--accent);">${m.def*n}</td></tr>`;
     body.innerHTML+=row;
   });
 }
 
 function updateTargetTotal(key){
   const n=parseInt(document.getElementById('num-days').value)||1;
-  let total=0;
-  for(let i=0;i<n;i++){
-    const el=document.getElementById(`tgt-${key}-${i}`);
-    total+=parseInt(el?.value)||0;
-  }
-  const tel=document.getElementById(`tgt-${key}-total`);
-  if(tel)tel.textContent=total;
+  let t=0;
+  for(let i=0;i<n;i++)t+=parseInt(document.getElementById(`tgt-${key}-${i}`)?.value)||0;
+  const el=document.getElementById(`tgt-${key}-total`);
+  if(el)el.textContent=t;
 }
 
 document.getElementById('num-days').addEventListener('input',buildDayRows);
 buildDayRows();
 
 // ===== START =====
-function startTracker(){
+async function startTracker(){
   const rows=document.querySelectorAll('.day-row');
   const days=[];
   for(const row of rows){
@@ -396,20 +428,24 @@ function startTracker(){
   days.sort((a,b)=>a.date.localeCompare(b.date));
   const n=days.length;
 
-  const targets=days.map((_,i)=>({
+  let targets=days.map((_,i)=>({
     lead:parseInt(document.getElementById(`tgt-lead-${i}`)?.value)||0,
     na:parseInt(document.getElementById(`tgt-na-${i}`)?.value)||0,
   }));
 
-  // load saved actuals or init
   const saved=localStorage.getItem('exhibition-actuals');
   actuals=saved?JSON.parse(saved):days.map(()=>({lead:0,na:0}));
-  if(actuals.length!==n) actuals=days.map(()=>({lead:0,na:0}));
+  if(actuals.length!==n)actuals=days.map(()=>({lead:0,na:0}));
 
-  config={eventName:document.getElementById('event-name').value||'展示会',days,targets};
+  const ssUrl=document.getElementById('ss-url').value.trim();
+  const ssSheet=document.getElementById('ss-sheet').value.trim();
+
+  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssUrl,ssSheet};
+
   document.getElementById('setup-panel').style.display='none';
   document.getElementById('dashboard').style.display='block';
   document.getElementById('d-event-name').textContent=config.eventName;
+  document.getElementById('btn-save').style.display=inputMode==='ss'?'none':'inline-block';
 
   if(!('documentPictureInPicture' in window)){
     document.getElementById('pip-btn').style.display='none';
@@ -417,8 +453,125 @@ function startTracker(){
     document.getElementById('pip-not-supported').style.display='block';
   }
 
+  if(inputMode==='ss'&&ssUrl){
+    document.getElementById('sync-bar').style.display='flex';
+    await fetchSheet();
+    syncInterval=setInterval(fetchSheet,60000);
+  }
+
   buildTimeline();buildKpiTable();updateDashboard();
   timerInterval=setInterval(updateDashboard,1000);
+}
+
+// ===== GOOGLE SHEETS FETCH =====
+function extractSheetId(url){
+  const m=url.match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+  return m?m[1]:null;
+}
+
+async function fetchSheet(){
+  if(!config||!config.ssUrl)return;
+  setSyncStatus('loading','取得中...');
+  try{
+    const sheetId=extractSheetId(config.ssUrl);
+    if(!sheetId)throw new Error('URLが正しくありません');
+
+    // シートのgidを取得（URLに含まれていれば使う）
+    const gidMatch=config.ssUrl.match(/[#&]gid=(\d+)/);
+
+    // export CSV エンドポイント（CORSが通りやすい）
+    // gidがURLにあればgid優先、なければシート名、どちらもなければ最初のシート(gid=0)
+    let csvUrl;
+    if(gidMatch){
+      csvUrl=`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gidMatch[1]}`;
+    }else if(config.ssSheet){
+      csvUrl=`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&sheet=${encodeURIComponent(config.ssSheet)}`;
+    }else{
+      csvUrl=`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
+    }
+
+    const res=await fetch(csvUrl,{mode:'cors'});
+    if(!res.ok)throw new Error(`取得失敗 (${res.status})`);
+    const text=await res.text();
+    if(text.includes('<!DOCTYPE')||text.includes('<html'))throw new Error('アクセス拒否（共有設定を確認してください）');
+    parseSheetData(text);
+    setSyncStatus('ok','同期済み');
+  }catch(e){
+    setSyncStatus('err','エラー: '+e.message);
+  }
+}
+
+function parseSheetData(csv){
+  // CSVをパース（ダブルクォート対応）
+  const rows=[];
+  csv.split(/\r?\n/).forEach(line=>{
+    const cols=[];let cur='',inQ=false;
+    for(let i=0;i<line.length;i++){
+      const c=line[i];
+      if(c==='"'){inQ=!inQ;}
+      else if(c===','&&!inQ){cols.push(cur.trim());cur='';}
+      else cur+=c;
+    }
+    cols.push(cur.trim());
+    rows.push(cols);
+  });
+
+  const get=(r,c)=>{
+    // r=1-indexed行, c=列文字 or 0-indexed
+    const ri=r-1;
+    const ci=typeof c==='string'?c.charCodeAt(0)-65:c;
+    return rows[ri]?rows[ri][ci]?.replace(/^"|"$/g,'')||'':'';
+  };
+  const num=(r,c)=>parseFloat(get(r,c).replace(/,/g,''))||0;
+
+  const n=config.days.length;
+
+  // 1人あたりNA目標（B7）→ 達成者判定に使用
+  naGoal=num(7,1); // B7
+
+  // 日別 リード・NA 目標・実績
+  // Day1: リード目標B11, 実績C11, NA目標B14, NA実績C14
+  // Day2: F11,G11,F14,G14
+  // Day3: J11,K11,J14,K14
+  const dayMap=[
+    {leadTgt:[11,1],leadAct:[11,2],naTgt:[14,1],naAct:[14,2]},
+    {leadTgt:[11,5],leadAct:[11,6],naTgt:[14,5],naAct:[14,6]},
+    {leadTgt:[11,9],leadAct:[11,10],naTgt:[14,9],naAct:[14,10]},
+  ];
+
+  for(let i=0;i<Math.min(n,3);i++){
+    const m=dayMap[i];
+    config.targets[i].lead=num(...m.leadTgt);
+    config.targets[i].na=num(...m.naTgt); // 日別NA目標（B14/F14/J14）
+    actuals[i].lead=num(...m.leadAct);
+    actuals[i].na=num(...m.naAct);
+  }
+
+  // 担当者・NA個人実績（B29〜, J29〜）
+  // B7（1人あたり目標）以上の人を達成者として表示
+  achievers=[];
+  for(let r=29;r<=60;r++){
+    const name=get(r,1); // B列
+    if(!name||name==='社員計'||name==='合計')break;
+    const naVal=num(r,9); // J列
+    if(naGoal>0&&naVal>=naGoal){
+      achievers.push({name,na:naVal});
+    }
+  }
+
+  refreshKpiTable();
+  updateSummaryChips();
+  renderAchievers();
+  updateDashboard();
+}
+
+function setSyncStatus(state,msg){
+  const dot=document.getElementById('sync-dot');
+  const label=document.getElementById('sync-label');
+  const time=document.getElementById('sync-time');
+  dot.className='sync-dot '+state;
+  label.textContent=msg;
+  if(state==='ok')time.textContent='最終更新: '+new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 
 // ===== HELPERS =====
@@ -446,23 +599,19 @@ function buildKpiTable(){
   const tbody=document.getElementById('kpi-tbody');
   const tfoot=document.getElementById('kpi-tfoot');
   tbody.innerHTML='';
-  const todayStr=new Date().toISOString().slice(0,10);
-
   config.days.forEach((d,i)=>{
     const tr=document.createElement('tr');
-    const isToday=d.date===todayStr;
+    const isManual=config.mode==='manual';
     tr.innerHTML=`
       <td>Day ${i+1}<br><span style="font-size:.72rem;color:var(--text-muted)">${d.date.slice(5).replace('-','/')}</span></td>
       <td id="kt-target-${i}">—</td>
-      <td class="kpi-input-cell"><input type="number" id="kt-actual-${i}" min="0" value="${actuals[i]?.[currentKpi]||0}" oninput="onActualInput(${i})"></td>
+      <td class="kpi-input-cell">${isManual?`<input type="number" id="kt-actual-${i}" min="0" value="${actuals[i]?.[currentKpi]||0}" oninput="onActualInput(${i})">`:`<span id="kt-actual-${i}">—</span>`}</td>
       <td id="kt-rate-${i}" class="rate-cell">—</td>
       <td id="kt-remain-${i}">—</td>
       <td style="min-width:100px"><div class="progress-wrap-sm"><div class="progress-bar-sm ${currentKpi==='lead'?'bar-lead':'bar-na'}" id="kt-bar-${i}" style="width:0%"></div></div></td>
     `;
     tbody.appendChild(tr);
   });
-
-  // total row
   tfoot.innerHTML=`<tr style="font-weight:700;background:var(--surface2)">
     <td style="color:var(--accent)">合計</td>
     <td id="kt-target-total">—</td>
@@ -471,7 +620,6 @@ function buildKpiTable(){
     <td id="kt-remain-total">—</td>
     <td><div class="progress-wrap-sm"><div class="progress-bar-sm ${currentKpi==='lead'?'bar-lead':'bar-na'}" id="kt-bar-total" style="width:0%"></div></div></td>
   </tr>`;
-
   refreshKpiTable();
 }
 
@@ -487,20 +635,20 @@ function refreshKpiTable(){
   if(!config)return;
   const k=currentKpi;
   const barClass=k==='lead'?'bar-lead':'bar-na';
-  let totalTarget=0,totalActual=0;
-
+  let tTgt=0,tAct=0;
   config.days.forEach((d,i)=>{
     const target=config.targets[i][k]||0;
     const actual=actuals[i]?.[k]||0;
     const r=pct(actual,target);
     const remain=Math.max(0,target-actual);
-    totalTarget+=target;totalActual+=actual;
-
+    tTgt+=target;tAct+=actual;
     const el=id=>document.getElementById(id);
-    // sync input value
-    const inp=el(`kt-actual-${i}`);
-    if(inp&&parseInt(inp.value)!==actual)inp.value=actual;
-
+    // SS mode: update span; Manual: update input
+    const actEl=el(`kt-actual-${i}`);
+    if(actEl){
+      if(actEl.tagName==='INPUT'){if(parseInt(actEl.value)!==actual)actEl.value=actual;}
+      else actEl.textContent=actual;
+    }
     el(`kt-target-${i}`).textContent=target;
     const rEl=el(`kt-rate-${i}`);
     rEl.textContent=target>0?r.toFixed(1)+'%':'—';
@@ -509,27 +657,24 @@ function refreshKpiTable(){
     const bar=el(`kt-bar-${i}`);
     if(bar){bar.style.width=r+'%';bar.className=`progress-bar-sm ${barClass}`;}
   });
-
-  const totalR=pct(totalActual,totalTarget);
+  const tR=pct(tAct,tTgt);
   const el=id=>document.getElementById(id);
-  el('kt-target-total').textContent=totalTarget;
-  el('kt-actual-total').textContent=totalActual;
+  el('kt-target-total').textContent=tTgt;
+  el('kt-actual-total').textContent=tAct;
   const trEl=el('kt-rate-total');
-  trEl.textContent=totalTarget>0?totalR.toFixed(1)+'%':'—';
-  trEl.className='rate-cell rate-'+rateClass(totalR);
-  el('kt-remain-total').textContent='+'+Math.max(0,totalTarget-totalActual);
+  trEl.textContent=tTgt>0?tR.toFixed(1)+'%':'—';
+  trEl.className='rate-cell rate-'+rateClass(tR);
+  el('kt-remain-total').textContent='+'+Math.max(0,tTgt-tAct);
   const tb=el('kt-bar-total');
-  if(tb){tb.style.width=totalR+'%';tb.className=`progress-bar-sm ${barClass}`;}
+  if(tb){tb.style.width=tR+'%';tb.className=`progress-bar-sm ${barClass}`;}
 }
 
 function updateSummaryChips(){
   if(!config)return;
   const k=currentKpi;
-  const totalTarget=config.targets.reduce((s,t)=>s+t[k],0);
-  const totalActual=actuals.reduce((s,a)=>s+(a?.[k]||0),0);
-  const r=pct(totalActual,totalTarget);
-
-  // elapsed exhibition hours for pace
+  const tTgt=config.targets.reduce((s,t)=>s+t[k],0);
+  const tAct=actuals.reduce((s,a)=>s+(a?.[k]||0),0);
+  const r=pct(tAct,tTgt);
   const now=new Date();
   let elMin=0,remMin=0;
   for(const d of config.days){
@@ -538,41 +683,55 @@ function updateSummaryChips(){
     if(now<e)remMin+=(e-Math.max(now,s))/60000;
   }
   const elH=elMin/60,remH=remMin/60;
-  const pace=elH>0?totalActual/elH:0;
+  const pace=elH>0?tAct/elH:0;
   const forecast=Math.round(pace*(elH+remH));
-
   const el=id=>document.getElementById(id);
-  el('chip-target-val').textContent=totalTarget;
-  el('chip-actual-val').textContent=totalActual;
-
-  const rEl=el('chip-rate');
-  el('chip-rate-val').textContent=totalTarget>0?r.toFixed(1)+'%':'—';
-  el('chip-rate-sub').textContent=`目標まで残り ${Math.max(0,totalTarget-totalActual)} 件`;
-  rEl.className='kpi-chip '+rateClass(r);
-
-  const fEl=el('chip-forecast');
+  el('chip-target-val').textContent=tTgt;
+  el('chip-actual-val').textContent=tAct;
+  el('chip-rate-val').textContent=tTgt>0?r.toFixed(1)+'%':'—';
+  el('chip-rate-sub').textContent=`目標まで残り ${Math.max(0,tTgt-tAct)} 件`;
+  document.getElementById('chip-rate').className='kpi-chip '+rateClass(r);
   el('chip-forecast-val').textContent=elH>0?forecast+'':'—';
-  fEl.className='kpi-chip '+(forecast>=totalTarget?'ok':forecast>=totalTarget*.8?'warn':'danger');
-
-  // highlight color
+  document.getElementById('chip-forecast').className='kpi-chip '+(forecast>=tTgt?'ok':forecast>=tTgt*.8?'warn':'danger');
   const isLead=k==='lead';
-  el('chip-target').querySelector('.kpi-chip-val').style.color=isLead?'var(--accent)':'var(--accent4)';
-  el('chip-actual').querySelector('.kpi-chip-val').style.color=isLead?'var(--accent)':'var(--accent4)';
+  el('chip-target-val').style.color=isLead?'var(--accent)':'var(--accent4)';
+  el('chip-actual-val').style.color=isLead?'var(--accent)':'var(--accent4)';
 }
 
 function switchKpi(k){
   currentKpi=k;
   document.querySelectorAll('.kpi-tab').forEach(t=>t.classList.remove('active'));
-  const activeTab=k==='lead'?document.querySelector('.kpi-tab.lead'):document.querySelector('.kpi-tab.na');
-  activeTab.classList.add('active');
-
-  // reload input values for switched metric
+  document.querySelector(`.kpi-tab.${k}`).classList.add('active');
   config.days.forEach((_,i)=>{
     const inp=document.getElementById(`kt-actual-${i}`);
-    if(inp) inp.value=actuals[i]?.[k]||0;
+    if(inp&&inp.tagName==='INPUT')inp.value=actuals[i]?.[k]||0;
   });
   refreshKpiTable();
   updateSummaryChips();
+}
+
+// ===== 達成者 =====
+function renderAchievers(){
+  const grid=document.getElementById('achievers-grid');
+  const thresh=document.getElementById('achiever-threshold');
+  thresh.textContent=naGoal>0?`NA目標: ${naGoal}枚以上を達成した担当者`:'（NA目標が取得されると表示されます）';
+  if(config.mode==='manual'){
+    grid.innerHTML='<span class="no-achiever">スプレッドシート連携時に表示されます</span>';
+    return;
+  }
+  if(achievers.length===0){
+    grid.innerHTML='<span class="no-achiever">まだ達成者がいません 💪</span>';
+    return;
+  }
+  grid.innerHTML=achievers.map(a=>`
+    <div class="achiever-card">
+      <div class="achiever-icon">🏆</div>
+      <div>
+        <div class="achiever-name">${a.name}</div>
+        <div class="achiever-num">NA: ${a.na}枚（目標 ${naGoal}枚）</div>
+      </div>
+    </div>
+  `).join('');
 }
 
 // ===== MAIN UPDATE =====
@@ -601,10 +760,8 @@ function calcState(){
 function updateDashboard(){
   const s=calcState();
   const{now,days,gS,gE,tSpan,tElap,tPct,todayStr,ti,dPct,dElap,dRemain,dStart,dEnd,status,sCls,dDetail}=s;
-
   document.getElementById('d-clock').textContent=now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   document.getElementById('d-date').textContent=now.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-
   document.getElementById('d-total-pct').textContent=tPct.toFixed(1)+'%';
   document.getElementById('d-total-bar').style.width=tPct+'%';
   document.getElementById('d-total-start').textContent=days[0].date.slice(5).replace('-','/')+' '+days[0].start;
@@ -612,7 +769,6 @@ function updateDashboard(){
   document.getElementById('d-total-elapsed').textContent=tElap>0?fDur(tElap):'未開始';
   document.getElementById('d-total-remain').textContent=gE>now?fDur(gE-now):'終了';
   document.getElementById('d-total-detail').innerHTML=`全体 <strong>${fDur(tSpan)}</strong> のうち <strong>${fDur(tElap)}</strong> 経過`;
-
   document.getElementById('d-day-pct').textContent=ti>=0?dPct.toFixed(1)+'%':'—';
   document.getElementById('d-day-bar').style.width=(ti>=0?dPct:0)+'%';
   document.getElementById('d-day-start').textContent=dStart;
@@ -620,9 +776,7 @@ function updateDashboard(){
   document.getElementById('d-day-elapsed').textContent=ti>=0&&dElap>0?fDur(dElap):'—';
   document.getElementById('d-day-remain').textContent=ti>=0?fDur(dRemain):'—';
   document.getElementById('d-day-detail').innerHTML=dDetail;
-
   const el=document.getElementById('d-status');el.textContent=status;el.className='status-badge '+sCls;
-
   days.forEach((d,i)=>{
     const dS=pDT(d.date,d.start),dE=pDT(d.date,d.end);
     let p=0,cls='day-block';
@@ -631,7 +785,6 @@ function updateDashboard(){
     document.getElementById(`db-${i}`).className=cls;
     document.getElementById(`dbp-${i}`).textContent=p.toFixed(0)+'%';
   });
-
   updateSummaryChips();
   updatePiPWindow(s);
 }
@@ -649,7 +802,7 @@ async function openPiP(){
   if(!('documentPictureInPicture' in window)){alert('このブラウザはDocument PiP未対応です');return;}
   if(pipWin&&!pipWin.closed){pipWin.close();pipWin=null;return;}
   try{
-    pipWin=await window.documentPictureInPicture.requestWindow({width:360,height:260});
+    pipWin=await window.documentPictureInPicture.requestWindow({width:360,height:280});
     const style=pipWin.document.createElement('style');
     style.textContent=`
       *{box-sizing:border-box;margin:0;padding:0;}
@@ -661,7 +814,7 @@ async function openPiP(){
       .status-closed,.status-ended{background:rgba(255,101,132,.15);color:#ff6584;border:1px solid rgba(255,101,132,.3);}
       .status-upcoming{background:rgba(108,99,255,.15);color:#6c63ff;border:1px solid rgba(108,99,255,.3);}
       .pc{font-size:1.9rem;font-weight:800;text-align:center;background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;letter-spacing:.06em;}
-      .pb{display:flex;gap:8px;}
+      .pb{display:flex;gap:8px;margin-bottom:8px;}
       .pbl{background:#1a1d2e;border-radius:10px;padding:9px 11px;flex:1;}
       .pbt{font-size:.62rem;color:#8890b5;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;}
       .ppr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;}
@@ -671,11 +824,15 @@ async function openPiP(){
       .pbb{height:100%;border-radius:4px;}
       .day .ppc{color:#9c63ff;}.day .pbb{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
       .total .ppc{color:#ff6584;}.total .pbb{background:linear-gradient(90deg,#ff6584,#ff9a9e);}
-      .pkpi{display:flex;gap:6px;margin-top:8px;}
+      .pkpi{display:flex;gap:6px;margin-bottom:8px;}
       .pk{background:#1a1d2e;border-radius:8px;padding:7px 10px;flex:1;text-align:center;}
       .pkt{font-size:.6rem;color:#8890b5;margin-bottom:2px;}
       .pkv{font-size:.95rem;font-weight:700;}
-      .lead{color:#9c63ff;}.na{color:#ffd43b;}
+      .lead-c{color:#9c63ff;}.na-c{color:#ffd43b;}
+      .ach-section{background:#1a1d2e;border-radius:10px;padding:8px 12px;}
+      .ach-title{font-size:.62rem;color:#8890b5;font-weight:600;margin-bottom:6px;}
+      .ach-list{display:flex;flex-wrap:wrap;gap:4px;}
+      .ach-name{font-size:.72rem;background:rgba(67,233,123,.15);color:#43e97b;border:1px solid rgba(67,233,123,.3);border-radius:6px;padding:2px 8px;}
     `;
     pipWin.document.head.appendChild(style);
     pipWin.document.body.innerHTML=`
@@ -686,10 +843,14 @@ async function openPiP(){
         <div class="pbl total"><div class="pbt">🗓 全体</div><div class="ppr"><span class="ppc" id="ppt"></span><span class="prm" id="pptr"></span></div><div class="pbw"><div class="pbb" id="pptb" style="width:0%"></div></div></div>
       </div>
       <div class="pkpi">
-        <div class="pk"><div class="pkt">🟣 リード</div><div class="pkv lead" id="ppl">—</div></div>
-        <div class="pk"><div class="pkt">🟡 NA数</div><div class="pkv na" id="ppn">—</div></div>
+        <div class="pk"><div class="pkt">🟣 リード</div><div class="pkv lead-c" id="ppl">—</div></div>
+        <div class="pk"><div class="pkt">🟡 NA数</div><div class="pkv na-c" id="ppn">—</div></div>
         <div class="pk"><div class="pkt">リード達成率</div><div class="pkv" id="pplr">—</div></div>
         <div class="pk"><div class="pkt">NA達成率</div><div class="pkv" id="ppnr">—</div></div>
+      </div>
+      <div class="ach-section">
+        <div class="ach-title">🏆 NA目標達成者</div>
+        <div class="ach-list" id="pach"></div>
       </div>
     `;
     pipInterval=setInterval(()=>{if(pipWin&&!pipWin.closed)updatePiPWindow(calcState());},1000);
@@ -713,23 +874,30 @@ function updatePiPWindow(s){
   set('ppt',tPct.toFixed(1)+'%');
   setW('pptb',tPct+'%');
   set('pptr',gE>now?'残り '+fDur(gE-now):'終了');
-
-  // KPI totals
-  const leadTotal=actuals.reduce((s,a)=>s+(a?.lead||0),0);
-  const naTotal=actuals.reduce((s,a)=>s+(a?.na||0),0);
-  const leadTgt=config.targets.reduce((s,t)=>s+t.lead,0);
-  const naTgt=config.targets.reduce((s,t)=>s+t.na,0);
-  set('ppl',leadTotal+' 件');
-  set('ppn',naTotal+' 件');
-  set('pplr',leadTgt>0?pct(leadTotal,leadTgt).toFixed(1)+'%':'—');
-  set('ppnr',naTgt>0?pct(naTotal,naTgt).toFixed(1)+'%':'—');
+  const lTot=actuals.reduce((s,a)=>s+(a?.lead||0),0);
+  const nTot=actuals.reduce((s,a)=>s+(a?.na||0),0);
+  const lTgt=config.targets.reduce((s,t)=>s+t.lead,0);
+  const nTgt=config.targets.reduce((s,t)=>s+t.na,0);
+  set('ppl',lTot+' 件');
+  set('ppn',nTot+' 件');
+  set('pplr',lTgt>0?pct(lTot,lTgt).toFixed(1)+'%':'—');
+  set('ppnr',nTgt>0?pct(nTot,nTgt).toFixed(1)+'%':'—');
+  const pachEl=g('pach');
+  if(pachEl){
+    if(achievers.length>0){
+      pachEl.innerHTML=achievers.map(a=>`<span class="ach-name">🏆 ${a.name}</span>`).join('');
+    } else {
+      pachEl.innerHTML='<span style="font-size:.72rem;color:#8890b5;">まだ達成者がいません</span>';
+    }
+  }
 }
 
 // ===== RESET =====
 function resetTracker(){
   clearInterval(timerInterval);
+  clearInterval(syncInterval);
   if(pipWin&&!pipWin.closed){clearInterval(pipInterval);pipWin.close();}
-  config=null;actuals=[];
+  config=null;actuals=[];achievers=[];naGoal=0;
   document.getElementById('setup-panel').style.display='block';
   document.getElementById('dashboard').style.display='none';
 }
