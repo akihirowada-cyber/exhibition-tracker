@@ -129,6 +129,8 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .kpi-chip.ok .kpi-chip-val{color:var(--accent3);}
 .kpi-chip.warn .kpi-chip-val{color:var(--accent4);}
 .kpi-chip.danger .kpi-chip-val{color:var(--accent2);}
+.kpi-chip.over .kpi-chip-val{color:#c084fc;}
+.kpi-chip.over{border-color:rgba(192,132,252,.35);background:rgba(192,132,252,.08);}
 .kpi-day-table{width:100%;border-collapse:collapse;}
 .kpi-day-table th{font-size:.72rem;color:var(--text-muted);font-weight:600;padding:8px 10px;text-align:center;background:var(--surface2);border:1px solid var(--border);}
 .kpi-day-table td{padding:8px 10px;border:1px solid var(--border);text-align:center;font-size:.88rem;}
@@ -138,10 +140,12 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .rate-ok{color:var(--accent3);font-weight:700;}
 .rate-warn{color:var(--accent4);font-weight:700;}
 .rate-danger{color:var(--accent2);font-weight:700;}
+.rate-over{color:#c084fc;font-weight:700;}
 .kpi-input-cell input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 8px;color:var(--text);font-size:.88rem;width:80px;text-align:center;outline:none;}
 .kpi-input-cell input:focus{border-color:var(--accent);}
 .progress-wrap-sm{background:var(--surface2);border-radius:4px;height:5px;overflow:hidden;margin-top:4px;}
 .progress-bar-sm{height:100%;border-radius:4px;}
+.bar-over{background:linear-gradient(90deg,#7c3aed,#c084fc)!important;box-shadow:0 0 6px rgba(192,132,252,.6);}
 .bar-lead{background:linear-gradient(90deg,#6c63ff,#9c63ff);}
 .bar-na{background:linear-gradient(90deg,#ffd43b,#ffaa00);}
 
@@ -152,6 +156,12 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 .achiever-name{font-size:.9rem;font-weight:700;color:var(--text);}
 .achiever-num{font-size:.75rem;color:var(--accent3);}
 .no-achiever{color:var(--text-muted);font-size:.85rem;}
+
+/* 達成者・日別セクション */
+.achiever-day-section{margin-bottom:16px;}
+.achiever-day-section:last-child{margin-bottom:0;}
+.achiever-day-label{font-size:.75rem;font-weight:700;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.achiever-day-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* footer */
 .footer-actions{text-align:center;margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
@@ -196,8 +206,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
     <div class="setup-title">📊 データ連携方法</div>
     <div class="mode-tabs">
       <div class="mode-tab active" id="tab-manual" onclick="setMode('manual')">✏️ 手入力</div>
-      <div class="mode-tab" id="tab-ss" onclick="setMode('ss')">🔗 スプレッドシート連携（公開）</div>
-      <div class="mode-tab" id="tab-gas" onclick="setMode('gas')">⚡ GAS連携（社内シート対応）</div>
+      <div class="mode-tab" id="tab-ss" onclick="setMode('ss')">🔗 スプレッドシート連携</div>
     </div>
 
     <!-- 手入力モード -->
@@ -210,49 +219,24 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
       </div>
     </div>
 
-    <!-- スプレッドシートモード -->
+    <!-- スプレッドシートモード（GAS経由・社内シート対応） -->
     <div id="mode-ss" style="display:none;">
       <div class="form-group" style="margin-bottom:12px;">
-        <label>スプレッドシートのURL</label>
-        <input type="url" id="ss-url" placeholder="https://docs.google.com/spreadsheets/d/...">
+        <label>GAS Web App URL（デプロイURL）※1回入力すれば保存されます</label>
+        <input type="url" id="ss-gas-url" placeholder="https://script.google.com/macros/s/＿＿＿/exec">
       </div>
       <div class="form-group" style="margin-bottom:12px;">
-        <label>シート名（タブ名）</label>
+        <label>シート名（タブ名）※毎回変更可</label>
         <input type="text" id="ss-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
       </div>
       <div class="ss-hint">
-        💡 <strong>設定手順</strong><br>
-        ① スプレッドシートを「リンクを知っている全員が閲覧可」に設定<br>
-        ② 上のURLにスプレッドシートのURLをそのまま貼り付け<br>
-        ③ シート名（下部タブの名前）を正確に入力<br><br>
-        📌 <strong>取得セル：</strong>
+        📌 <strong>取得セル：</strong><br>
         リード目標 <code>B11/F11/J11</code>　リード実績 <code>C11/G11/K11</code><br>
         NA目標（日別） <code>B14/F14/J14</code>　NA実績 <code>C14/G14/K14</code><br>
         NA個人目標 <code>B7</code>（達成者判定に使用）<br>
         担当者 <code>B29〜</code>　NA個人実績 <code>J29〜</code>
       </div>
-      <p class="ss-note" style="margin-top:8px;">※ 60秒ごとに自動更新されます</p>
-    </div>
-
-    <!-- GASモード -->
-    <div id="mode-gas" style="display:none;">
-      <div class="form-group" style="margin-bottom:12px;">
-        <label>GAS Web App URL</label>
-        <input type="url" id="gas-url" placeholder="https://script.google.com/macros/s/...">
-      </div>
-      <div class="form-group" style="margin-bottom:12px;">
-        <label>シート名（タブ名）※毎回変更可</label>
-        <input type="text" id="gas-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
-      </div>
-      <div class="ss-hint">
-        💡 <strong>設定手順</strong><br>
-        ① スプレッドシートを開き、メニュー「拡張機能 → Apps Script」を開く<br>
-        ② 配布した <code>gas-script.gs</code> の内容を貼り付け、<code>SHEET_NAME</code> を修正して保存<br>
-        ③「デプロイ → 新しいデプロイ」→ 種類：<strong>ウェブアプリ</strong><br>
-        ④ 実行ユーザー：<strong>自分</strong>　アクセスできるユーザー：<strong>全員</strong> に設定<br>
-        ⑤「デプロイ」を押して表示されたURLを上の入力欄に貼り付け
-      </div>
-      <p class="ss-note" style="margin-top:8px;">※ 社内限定シートでも「自分として実行」することで取得できます。60秒ごとに自動更新。</p>
+      <p class="ss-note" style="margin-top:8px;">※ Sansanアカウントで認証済みのため、社内限定シートもそのまま読み込めます（JSONPで取得）。60秒ごとに自動更新。</p>
     </div>
   </div>
 
@@ -279,7 +263,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
     <div class="sync-dot" id="sync-dot"></div>
     <span class="sync-label" id="sync-label">スプレッドシート連携中</span>
     <span class="sync-time" id="sync-time"></span>
-    <button class="btn-sync" onclick="fetchSheet()">🔄 今すぐ更新</button>
+    <button class="btn-sync" onclick="fetchFromGAS()">🔄 今すぐ更新</button>
   </div>
 
   <!-- Time cards -->
@@ -336,11 +320,11 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
     </div>
   </div>
 
-  <!-- 目標達成者ボード -->
+  <!-- 目標達成者ボード（日別） -->
   <div class="section-card">
     <div class="section-title">🏆 NA目標達成者</div>
-    <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:12px;" id="achiever-threshold"></div>
-    <div class="achievers-grid" id="achievers-grid">
+    <div style="font-size:.78rem;color:var(--text-muted);margin-bottom:14px;" id="achiever-threshold"></div>
+    <div id="achievers-by-day">
       <span class="no-achiever">データを取得中...</span>
     </div>
   </div>
@@ -356,17 +340,15 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
 <script>
 let config=null, timerInterval=null, syncInterval=null, pipWin=null, pipInterval=null;
 let currentKpi='lead', inputMode='manual';
-let actuals=[], achievers=[], naGoal=0;
+let actuals=[], achievers=[], achieversByDay=[[],[],[]], naGoal=0;
 
 // ===== SETUP =====
 function setMode(m){
   inputMode=m;
   document.getElementById('tab-manual').classList.toggle('active',m==='manual');
   document.getElementById('tab-ss').classList.toggle('active',m==='ss');
-  document.getElementById('tab-gas').classList.toggle('active',m==='gas');
   document.getElementById('mode-manual').style.display=m==='manual'?'block':'none';
   document.getElementById('mode-ss').style.display=m==='ss'?'block':'none';
-  document.getElementById('mode-gas').style.display=m==='gas'?'block':'none';
 }
 
 function buildDayRows(){
@@ -438,8 +420,14 @@ function updateTargetTotal(key){
 document.getElementById('num-days').addEventListener('input',buildDayRows);
 buildDayRows();
 
+// 前回入力した GAS URL を復元
+(function restoreGasUrl(){
+  const saved=localStorage.getItem('exhibition-gas-url');
+  if(saved)document.getElementById('ss-gas-url').value=saved;
+})();
+
 // ===== START =====
-async function startTracker(){
+function startTracker(){
   const rows=document.querySelectorAll('.day-row');
   const days=[];
   for(const row of rows){
@@ -461,158 +449,80 @@ async function startTracker(){
   actuals=saved?JSON.parse(saved):days.map(()=>({lead:0,na:0}));
   if(actuals.length!==n)actuals=days.map(()=>({lead:0,na:0}));
 
-  const ssUrl=document.getElementById('ss-url').value.trim();
   const ssSheet=document.getElementById('ss-sheet').value.trim();
-  const gasUrl=document.getElementById('gas-url').value.trim();
-  const gasSheet=document.getElementById('gas-sheet').value.trim();
+  const gasUrl=document.getElementById('ss-gas-url').value.trim();
 
-  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssUrl,ssSheet,gasUrl,gasSheet};
+  if(inputMode==='ss'){
+    if(!gasUrl){alert('GAS Web App URL を入力してください');return;}
+    if(!ssSheet){alert('シート名を入力してください');return;}
+    // 次回のために保存
+    localStorage.setItem('exhibition-gas-url',gasUrl);
+  }
+
+  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssSheet,gasUrl};
 
   document.getElementById('setup-panel').style.display='none';
   document.getElementById('dashboard').style.display='block';
   document.getElementById('d-event-name').textContent=config.eventName;
-  document.getElementById('btn-save').style.display=(inputMode==='ss'||inputMode==='gas')?'none':'inline-block';
+  document.getElementById('btn-save').style.display=inputMode==='ss'?'none':'inline-block';
 
+  // Document PiP非対応の場合はボタンラベルを切り替えてポップアップ方式で代替
   if(!('documentPictureInPicture' in window)){
-    document.getElementById('pip-btn').style.display='none';
-    document.getElementById('pip-not-supported').textContent='⚠️ PiPはChrome/Edge 116以上で対応';
-    document.getElementById('pip-not-supported').style.display='block';
+    document.getElementById('pip-btn').innerHTML=`
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="12" y="11" width="9" height="6" rx="1" fill="currentColor" stroke="none" opacity=".5"/><polyline points="8 17 8 21"/><line x1="5" y1="21" x2="11" y2="21"/></svg>
+      📌 コンパクト表示（別ウィンドウ）`;
   }
 
-  if(inputMode==='ss'&&ssUrl){
+  if(inputMode==='ss'&&ssSheet&&gasUrl){
     document.getElementById('sync-bar').style.display='flex';
-    await fetchSheet();
-    syncInterval=setInterval(fetchSheet,60000);
-  }else if(inputMode==='gas'&&gasUrl){
-    document.getElementById('sync-bar').style.display='flex';
-    await fetchGas();
-    syncInterval=setInterval(fetchGas,60000);
+    fetchFromGAS();
+    syncInterval=setInterval(fetchFromGAS,60000);
   }
 
   buildTimeline();buildKpiTable();updateDashboard();
   timerInterval=setInterval(updateDashboard,1000);
 }
 
-// ===== GOOGLE SHEETS FETCH =====
-function extractSheetId(url){
-  const m=url.match(/\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
-  return m?m[1]:null;
-}
-
-async function fetchSheet(){
-  if(!config||!config.ssUrl)return;
+// ===== GAS データ取得（JSONP / <script>タグ方式） =====
+// GitHub Pages からは google.script.run が使えないため、<script>タグで
+// GAS Web App を呼び出し、?callback=xxx の JSONP レスポンスを受け取る。
+// Sansanアカウントのログイン Cookie が <script> ロードと一緒に送られるため、
+// 社内限定（ドメイン制限）デプロイでも認証が通る。
+function fetchFromGAS(){
+  if(!config||!config.ssSheet||!config.gasUrl)return;
   setSyncStatus('loading','取得中...');
-  try{
-    const sheetId=extractSheetId(config.ssUrl);
-    if(!sheetId)throw new Error('URLが正しくありません');
 
-    // シートのgidを取得（URLに含まれていれば使う）
-    const gidMatch=config.ssUrl.match(/[#&]gid=(\d+)/);
+  const cbName='__gasCb_'+Date.now()+'_'+Math.floor(Math.random()*1e6);
+  const script=document.createElement('script');
+  let done=false;
 
-    // export CSV エンドポイント（CORSが通りやすい）
-    // gidがURLにあればgid優先、なければシート名、どちらもなければ最初のシート(gid=0)
-    let csvUrl;
-    if(gidMatch){
-      csvUrl=`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gidMatch[1]}`;
-    }else if(config.ssSheet){
-      csvUrl=`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&sheet=${encodeURIComponent(config.ssSheet)}`;
-    }else{
-      csvUrl=`https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv`;
-    }
-
-    const res=await fetch(csvUrl,{mode:'cors'});
-    if(!res.ok)throw new Error(`取得失敗 (${res.status})`);
-    const text=await res.text();
-    if(text.includes('<!DOCTYPE')||text.includes('<html'))throw new Error('アクセス拒否（共有設定を確認してください）');
-    parseSheetData(text);
-    setSyncStatus('ok','同期済み');
-  }catch(e){
-    setSyncStatus('err','エラー: '+e.message);
-  }
-}
-
-function parseSheetData(csv){
-  // CSVをパース（ダブルクォート対応）
-  const rows=[];
-  csv.split(/\r?\n/).forEach(line=>{
-    const cols=[];let cur='',inQ=false;
-    for(let i=0;i<line.length;i++){
-      const c=line[i];
-      if(c==='"'){inQ=!inQ;}
-      else if(c===','&&!inQ){cols.push(cur.trim());cur='';}
-      else cur+=c;
-    }
-    cols.push(cur.trim());
-    rows.push(cols);
-  });
-
-  const get=(r,c)=>{
-    // r=1-indexed行, c=列文字 or 0-indexed
-    const ri=r-1;
-    const ci=typeof c==='string'?c.charCodeAt(0)-65:c;
-    return rows[ri]?rows[ri][ci]?.replace(/^"|"$/g,'')||'':'';
+  const cleanup=()=>{
+    try{delete window[cbName];}catch(e){window[cbName]=undefined;}
+    if(script.parentNode)script.parentNode.removeChild(script);
+    clearTimeout(timer);
   };
-  const num=(r,c)=>parseFloat(get(r,c).replace(/,/g,''))||0;
 
-  const n=config.days.length;
+  const timer=setTimeout(()=>{
+    if(done)return;done=true;cleanup();
+    setSyncStatus('err','タイムアウト：GAS URL・公開設定・ログイン状態を確認してください');
+  },15000);
 
-  // 1人あたりNA目標（B7）→ 達成者判定に使用
-  naGoal=num(7,1); // B7
+  window[cbName]=function(data){
+    if(done)return;done=true;cleanup();
+    if(!data){setSyncStatus('err','空のレスポンスが返りました');return;}
+    if(data.error){setSyncStatus('err','エラー: '+data.error);return;}
+    parseGasData(data);
+    setSyncStatus('ok','同期済み（'+config.ssSheet+'）');
+  };
 
-  // 日別 リード・NA 目標・実績
-  // Day1: リード目標B11, 実績C11, NA目標B14, NA実績C14
-  // Day2: F11,G11,F14,G14
-  // Day3: J11,K11,J14,K14
-  const dayMap=[
-    {leadTgt:[11,1],leadAct:[11,2],naTgt:[14,1],naAct:[14,2]},
-    {leadTgt:[11,5],leadAct:[11,6],naTgt:[14,5],naAct:[14,6]},
-    {leadTgt:[11,9],leadAct:[11,10],naTgt:[14,9],naAct:[14,10]},
-  ];
+  script.onerror=()=>{
+    if(done)return;done=true;cleanup();
+    setSyncStatus('err','読み込み失敗：GAS URL が正しいか／Sansanにログイン済みか確認してください');
+  };
 
-  for(let i=0;i<Math.min(n,3);i++){
-    const m=dayMap[i];
-    config.targets[i].lead=num(...m.leadTgt);
-    config.targets[i].na=num(...m.naTgt); // 日別NA目標（B14/F14/J14）
-    actuals[i].lead=num(...m.leadAct);
-    actuals[i].na=num(...m.naAct);
-  }
-
-  // 担当者・NA個人実績（B29〜, J29〜）
-  // B7（1人あたり目標）以上の人を達成者として表示
-  achievers=[];
-  for(let r=29;r<=60;r++){
-    const name=get(r,1); // B列
-    if(!name||name==='社員計'||name==='合計')break;
-    const naVal=num(r,9); // J列
-    if(naGoal>0&&naVal>=naGoal){
-      achievers.push({name,na:naVal});
-    }
-  }
-
-  refreshKpiTable();
-  updateSummaryChips();
-  renderAchievers();
-  updateDashboard();
-}
-
-// ===== GAS FETCH =====
-async function fetchGas(){
-  if(!config||!config.gasUrl)return;
-  setSyncStatus('loading','取得中...');
-  try{
-    // シート名をクエリパラメータとして付与
-    const url=config.gasSheet
-      ?`${config.gasUrl}?sheet=${encodeURIComponent(config.gasSheet)}`
-      :config.gasUrl;
-    const res=await fetch(url,{redirect:'follow'});
-    if(!res.ok)throw new Error(`取得失敗 (${res.status})`);
-    const json=await res.json();
-    if(json.error)throw new Error(json.error);
-    parseGasData(json);
-    setSyncStatus('ok',`同期済み（GAS / ${config.gasSheet||'シート未指定'}）`);
-  }catch(e){
-    setSyncStatus('err','エラー: '+e.message);
-  }
+  const sep=config.gasUrl.indexOf('?')>=0?'&':'?';
+  script.src=config.gasUrl+sep+'sheet='+encodeURIComponent(config.ssSheet)+'&callback='+cbName;
+  document.body.appendChild(script);
 }
 
 function parseGasData(data){
@@ -626,10 +536,20 @@ function parseGasData(data){
     actuals[i].lead=d.leadAct||0;
     actuals[i].na=d.naAct||0;
   }
+  // 日別達成者を集計
+  achieversByDay=[[],[],[]];
   achievers=[];
-  if(data.members&&naGoal>0){
-    data.members.forEach(m=>{
-      if(m.na>=naGoal)achievers.push({name:m.name,na:m.na});
+  if(data.membersByDay&&naGoal>0){
+    data.membersByDay.forEach((dayMembers,i)=>{
+      dayMembers.forEach(m=>{
+        if(m.na>=naGoal){
+          achieversByDay[i].push({name:m.name,na:m.na});
+          // PiP用の全体リスト（重複なし・同名は最大値）
+          const existing=achievers.find(a=>a.name===m.name);
+          if(!existing)achievers.push({name:m.name,na:m.na});
+          else if(m.na>existing.na)existing.na=m.na;
+        }
+      });
     });
   }
   refreshKpiTable();
@@ -654,8 +574,8 @@ function fDur(ms){
   const m=Math.floor(ms/60000),h=Math.floor(m/60),mm=m%60;
   return h>0?`${h}時間${mm}分`:`${mm}分`;
 }
-function pct(v,t){return t<=0?0:Math.min(100,Math.max(0,v/t*100));}
-function rateClass(r){return r>=100?'ok':r>=80?'warn':'danger';}
+function pct(v,t){return t<=0?0:Math.max(0,v/t*100);}
+function rateClass(r){return r>100?'over':r>=100?'ok':r>=80?'warn':'danger';}
 
 // ===== TIMELINE =====
 function buildTimeline(){
@@ -716,7 +636,6 @@ function refreshKpiTable(){
     const remain=Math.max(0,target-actual);
     tTgt+=target;tAct+=actual;
     const el=id=>document.getElementById(id);
-    // SS mode: update span; Manual: update input
     const actEl=el(`kt-actual-${i}`);
     if(actEl){
       if(actEl.tagName==='INPUT'){if(parseInt(actEl.value)!==actual)actEl.value=actual;}
@@ -724,22 +643,22 @@ function refreshKpiTable(){
     }
     el(`kt-target-${i}`).textContent=target;
     const rEl=el(`kt-rate-${i}`);
-    rEl.textContent=target>0?r.toFixed(1)+'%':'—';
+    rEl.textContent=target>0?(r>100?'🎉 ':'') + r.toFixed(1)+'%':'—';
     rEl.className='rate-cell rate-'+rateClass(r);
-    el(`kt-remain-${i}`).textContent='+'+remain;
+    el(`kt-remain-${i}`).textContent=actual>target?`+${actual-target} 超過`:`残${remain}`;
     const bar=el(`kt-bar-${i}`);
-    if(bar){bar.style.width=r+'%';bar.className=`progress-bar-sm ${barClass}`;}
+    if(bar){bar.style.width=Math.min(100,r)+'%';bar.className=`progress-bar-sm ${barClass}${r>100?' bar-over':''}`;}
   });
   const tR=pct(tAct,tTgt);
   const el=id=>document.getElementById(id);
   el('kt-target-total').textContent=tTgt;
   el('kt-actual-total').textContent=tAct;
   const trEl=el('kt-rate-total');
-  trEl.textContent=tTgt>0?tR.toFixed(1)+'%':'—';
+  trEl.textContent=tTgt>0?(tR>100?'🎉 ':'')+tR.toFixed(1)+'%':'—';
   trEl.className='rate-cell rate-'+rateClass(tR);
-  el('kt-remain-total').textContent='+'+Math.max(0,tTgt-tAct);
+  el('kt-remain-total').textContent=tAct>tTgt?`+${tAct-tTgt} 超過`:`残${Math.max(0,tTgt-tAct)}`;
   const tb=el('kt-bar-total');
-  if(tb){tb.style.width=tR+'%';tb.className=`progress-bar-sm ${barClass}`;}
+  if(tb){tb.style.width=Math.min(100,tR)+'%';tb.className=`progress-bar-sm ${barClass}${tR>100?' bar-over':''}`;}
 }
 
 function updateSummaryChips(){
@@ -761,8 +680,8 @@ function updateSummaryChips(){
   const el=id=>document.getElementById(id);
   el('chip-target-val').textContent=tTgt;
   el('chip-actual-val').textContent=tAct;
-  el('chip-rate-val').textContent=tTgt>0?r.toFixed(1)+'%':'—';
-  el('chip-rate-sub').textContent=`目標まで残り ${Math.max(0,tTgt-tAct)} 件`;
+  el('chip-rate-val').textContent=tTgt>0?(r>100?'🎉 ':'')+r.toFixed(1)+'%':'—';
+  el('chip-rate-sub').textContent=r>100?`目標超過！ +${tAct-tTgt} 件`:`目標まで残り ${Math.max(0,tTgt-tAct)} 件`;
   document.getElementById('chip-rate').className='kpi-chip '+rateClass(r);
   el('chip-forecast-val').textContent=elH>0?forecast+'':'—';
   document.getElementById('chip-forecast').className='kpi-chip '+(forecast>=tTgt?'ok':forecast>=tTgt*.8?'warn':'danger');
@@ -783,35 +702,60 @@ function switchKpi(k){
   updateSummaryChips();
 }
 
-// ===== 達成者 =====
+// ===== 達成者（日別） =====
 function renderAchievers(){
-  const grid=document.getElementById('achievers-grid');
+  const container=document.getElementById('achievers-by-day');
   const thresh=document.getElementById('achiever-threshold');
   thresh.textContent=naGoal>0?`NA目標: ${naGoal}枚以上を達成した担当者`:'（NA目標が取得されると表示されます）';
+
   if(config.mode==='manual'){
-    grid.innerHTML='<span class="no-achiever">スプレッドシート連携時に表示されます</span>';
+    container.innerHTML='<span class="no-achiever">スプレッドシート連携時に表示されます</span>';
     return;
   }
-  if(achievers.length===0){
-    grid.innerHTML='<span class="no-achiever">まだ達成者がいません 💪</span>';
+
+  const totalAchievers=achieversByDay.reduce((s,d)=>s+d.length,0);
+  if(totalAchievers===0&&naGoal===0){
+    container.innerHTML='<span class="no-achiever">データを取得中...</span>';
     return;
   }
-  grid.innerHTML=achievers.map(a=>`
-    <div class="achiever-card">
-      <div class="achiever-icon">🏆</div>
-      <div>
-        <div class="achiever-name">${a.name}</div>
-        <div class="achiever-num">NA: ${a.na}枚（目標 ${naGoal}枚）</div>
-      </div>
-    </div>
-  `).join('');
+
+  // 会期日数分のセクションを生成
+  const n=Math.min(config.days.length,3);
+  container.innerHTML=Array.from({length:n},(_,i)=>{
+    const d=config.days[i];
+    const label=`Day ${i+1}（${d.date.slice(5).replace('-','/')}）`;
+    const list=achieversByDay[i]||[];
+    const cards=list.length>0
+      ? list.map(a=>`
+          <div class="achiever-card">
+            <div class="achiever-icon">🏆</div>
+            <div>
+              <div class="achiever-name">${a.name}</div>
+              <div class="achiever-num">NA: ${a.na}枚（目標 ${naGoal}枚）</div>
+            </div>
+          </div>`).join('')
+      : `<span class="no-achiever">まだ達成者がいません 💪</span>`;
+    return `
+      <div class="achiever-day-section">
+        <div class="achiever-day-label">📅 ${label}</div>
+        <div class="achievers-grid">${cards}</div>
+      </div>`;
+  }).join('');
 }
 
 // ===== MAIN UPDATE =====
 function calcState(){
   const now=new Date(),days=config.days;
   const gS=pDT(days[0].date,days[0].start),gE=pDT(days[days.length-1].date,days[days.length-1].end);
-  const tSpan=gE-gS,tElap=Math.min(Math.max(0,now-gS),tSpan),tPct=pct(tElap,tSpan);
+  // 全体時間：各日の展示時間のみ合算（夜間・閉場時間を含まない）
+  let tSpan=0,tElap=0;
+  for(const d of days){
+    const dS=pDT(d.date,d.start),dE=pDT(d.date,d.end),dur=dE-dS;
+    tSpan+=dur;
+    if(now>=dE)tElap+=dur;           // 終了日 → 丸ごと加算
+    else if(now>dS)tElap+=now-dS;    // 開催中 → 経過分のみ加算
+  }
+  const tPct=pct(tElap,tSpan),tRemain=Math.max(0,tSpan-tElap);
   const todayStr=now.toISOString().slice(0,10);
   const ti=days.findIndex(d=>d.date===todayStr);
   let dPct=0,dElap=0,dSpan=0,dRemain=0,dStart='',dEnd='',status='',sCls='',dDetail='';
@@ -827,12 +771,12 @@ function calcState(){
     else if(todayStr>days[days.length-1].date){dDetail='展示会は終了しました';status='終了';sCls='status-ended';}
     else{const nx=days.find(d=>d.date>todayStr);dDetail=nx?`次の開催日まで <strong>${fDur(pDT(nx.date,nx.start)-now)}</strong>`:'休日';status='休日';sCls='status-closed';}
   }
-  return{now,days,gS,gE,tSpan,tElap,tPct,todayStr,ti,dPct,dElap,dSpan,dRemain,dStart,dEnd,status,sCls,dDetail};
+  return{now,days,gS,gE,tSpan,tElap,tPct,tRemain,todayStr,ti,dPct,dElap,dSpan,dRemain,dStart,dEnd,status,sCls,dDetail};
 }
 
 function updateDashboard(){
   const s=calcState();
-  const{now,days,gS,gE,tSpan,tElap,tPct,todayStr,ti,dPct,dElap,dRemain,dStart,dEnd,status,sCls,dDetail}=s;
+  const{now,days,gS,gE,tSpan,tElap,tPct,tRemain,todayStr,ti,dPct,dElap,dRemain,dStart,dEnd,status,sCls,dDetail}=s;
   document.getElementById('d-clock').textContent=now.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   document.getElementById('d-date').textContent=now.toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
   document.getElementById('d-total-pct').textContent=tPct.toFixed(1)+'%';
@@ -840,7 +784,7 @@ function updateDashboard(){
   document.getElementById('d-total-start').textContent=days[0].date.slice(5).replace('-','/')+' '+days[0].start;
   document.getElementById('d-total-end').textContent=days[days.length-1].date.slice(5).replace('-','/')+' '+days[days.length-1].end;
   document.getElementById('d-total-elapsed').textContent=tElap>0?fDur(tElap):'未開始';
-  document.getElementById('d-total-remain').textContent=gE>now?fDur(gE-now):'終了';
+  document.getElementById('d-total-remain').textContent=tRemain>0?fDur(tRemain):'終了';
   document.getElementById('d-total-detail').innerHTML=`全体 <strong>${fDur(tSpan)}</strong> のうち <strong>${fDur(tElap)}</strong> 経過`;
   document.getElementById('d-day-pct').textContent=ti>=0?dPct.toFixed(1)+'%':'—';
   document.getElementById('d-day-bar').style.width=(ti>=0?dPct:0)+'%';
@@ -872,10 +816,28 @@ function saveData(){
 
 // ===== PiP =====
 async function openPiP(){
-  if(!('documentPictureInPicture' in window)){alert('このブラウザはDocument PiP未対応です');return;}
-  if(pipWin&&!pipWin.closed){pipWin.close();pipWin=null;return;}
+  // すでに開いていれば閉じる
+  if(pipWin&&!pipWin.closed){
+    clearInterval(pipInterval);
+    pipWin.close();
+    pipWin=null;
+    return;
+  }
+  // ── ① Document PiP を試みる（Permissions-Policy でブロックされる場合あり）──
+  if('documentPictureInPicture' in window){
+    try{pipWin=await window.documentPictureInPicture.requestWindow({width:360,height:280});}
+    catch(e){/* Permissions-Policy でブロック → 下の window.open にフォールバック */}
+  }
+  // ── ② Document PiP が使えない／失敗した場合は通常ポップアップ ──
+  if(!pipWin){
+    pipWin=window.open('','ExhibitionPiP',
+      'width=360,height=300,toolbar=no,menubar=no,scrollbars=no,resizable=yes');
+    if(!pipWin){alert('ポップアップがブロックされました。アドレスバー付近でポップアップを許可してください。');return;}
+    pipWin.document.open();
+    pipWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>展示会トラッカー</title></head><body></body></html>');
+    pipWin.document.close();
+  }
   try{
-    pipWin=await window.documentPictureInPicture.requestWindow({width:360,height:280});
     const style=pipWin.document.createElement('style');
     style.textContent=`
       *{box-sizing:border-box;margin:0;padding:0;}
@@ -928,13 +890,16 @@ async function openPiP(){
     `;
     pipInterval=setInterval(()=>{if(pipWin&&!pipWin.closed)updatePiPWindow(calcState());},1000);
     updatePiPWindow(calcState());
-    pipWin.addEventListener('pagehide',()=>{clearInterval(pipInterval);pipWin=null;});
+    // Document PiP は pagehide、window.open は beforeunload で検知
+    const onClose=()=>{clearInterval(pipInterval);pipWin=null;};
+    pipWin.addEventListener('pagehide',onClose);
+    pipWin.addEventListener('beforeunload',onClose);
   }catch(e){alert('PiPを開けませんでした: '+e.message);}
 }
 
 function updatePiPWindow(s){
   if(!pipWin||pipWin.closed)return;
-  const{now,tPct,dPct,dRemain,gE,status,sCls}=s;
+  const{now,tPct,tRemain,dPct,dRemain,gE,status,sCls}=s;
   const g=id=>pipWin.document.getElementById(id);
   const set=(id,v)=>{const e=g(id);if(e)e.textContent=v;};
   const setW=(id,v)=>{const e=g(id);if(e)e.style.width=v;};
@@ -946,7 +911,7 @@ function updatePiPWindow(s){
   set('ppdr',s.ti>=0&&dRemain>0?'残り '+fDur(dRemain):'');
   set('ppt',tPct.toFixed(1)+'%');
   setW('pptb',tPct+'%');
-  set('pptr',gE>now?'残り '+fDur(gE-now):'終了');
+  set('pptr',tRemain>0?'残り '+fDur(tRemain):'終了');
   const lTot=actuals.reduce((s,a)=>s+(a?.lead||0),0);
   const nTot=actuals.reduce((s,a)=>s+(a?.na||0),0);
   const lTgt=config.targets.reduce((s,t)=>s+t.lead,0);
