@@ -229,6 +229,10 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
         <label>シート名（タブ名）※毎回変更可</label>
         <input type="text" id="ss-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
       </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>合言葉トークン（GAS側で設定した場合のみ・任意）</label>
+        <input type="text" id="ss-token" placeholder="GASのACCESS_TOKENと同じ値（未設定なら空欄）">
+      </div>
       <div class="ss-hint">
         📌 <strong>取得セル：</strong><br>
         リード目標 <code>B11/F11/J11</code>　リード実績 <code>C11/G11/K11</code><br>
@@ -420,10 +424,12 @@ function updateTargetTotal(key){
 document.getElementById('num-days').addEventListener('input',buildDayRows);
 buildDayRows();
 
-// 前回入力した GAS URL を復元
-(function restoreGasUrl(){
-  const saved=localStorage.getItem('exhibition-gas-url');
-  if(saved)document.getElementById('ss-gas-url').value=saved;
+// 前回入力した GAS URL / トークンを復元
+(function restoreGasSettings(){
+  const savedUrl=localStorage.getItem('exhibition-gas-url');
+  if(savedUrl)document.getElementById('ss-gas-url').value=savedUrl;
+  const savedToken=localStorage.getItem('exhibition-gas-token');
+  if(savedToken)document.getElementById('ss-token').value=savedToken;
 })();
 
 // ===== START =====
@@ -451,15 +457,17 @@ function startTracker(){
 
   const ssSheet=document.getElementById('ss-sheet').value.trim();
   const gasUrl=document.getElementById('ss-gas-url').value.trim();
+  const gasToken=document.getElementById('ss-token').value.trim();
 
   if(inputMode==='ss'){
     if(!gasUrl){alert('GAS Web App URL を入力してください');return;}
     if(!ssSheet){alert('シート名を入力してください');return;}
     // 次回のために保存
     localStorage.setItem('exhibition-gas-url',gasUrl);
+    localStorage.setItem('exhibition-gas-token',gasToken);
   }
 
-  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssSheet,gasUrl};
+  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssSheet,gasUrl,gasToken};
 
   document.getElementById('setup-panel').style.display='none';
   document.getElementById('dashboard').style.display='block';
@@ -521,7 +529,9 @@ function fetchFromGAS(){
   };
 
   const sep=config.gasUrl.indexOf('?')>=0?'&':'?';
-  script.src=config.gasUrl+sep+'sheet='+encodeURIComponent(config.ssSheet)+'&callback='+cbName;
+  let url=config.gasUrl+sep+'sheet='+encodeURIComponent(config.ssSheet)+'&callback='+cbName;
+  if(config.gasToken)url+='&token='+encodeURIComponent(config.gasToken);
+  script.src=url;
   document.body.appendChild(script);
 }
 
