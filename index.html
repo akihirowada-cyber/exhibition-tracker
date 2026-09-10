@@ -225,6 +225,10 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
         <label>データJSONのURL（GASが自動更新するファイル）※1回入力すれば保存されます</label>
         <input type="url" id="ss-json-url" placeholder="https://<user>.github.io/<repo>/data.json">
       </div>
+      <div class="form-group" style="margin-bottom:12px;">
+        <label>シート名（タブ名）※毎回変更可</label>
+        <input type="text" id="ss-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
+      </div>
       <div class="ss-hint">
         📌 <strong>GAS取得セル（参考）：</strong><br>
         リード目標 <code>B12/F12/J12</code>　リード実績 <code>C12/G12/K12</code><br>
@@ -232,7 +236,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
         NA個人目標 <code>B7</code>（達成者判定に使用）<br>
         担当者 <code>B29〜</code>　NA個人実績 <code>K29〜</code>
       </div>
-      <p class="ss-note" style="margin-top:8px;">※ GAS側が時間主導トリガーでスプレッドシートを読み、GitHub上のJSONファイルを自動更新します。ここではそのJSONのURLを指定するだけで、Googleログインは不要です。60秒ごとに自動再取得。</p>
+      <p class="ss-note" style="margin-top:8px;">※ GAS側が時間主導トリガーで全シートを読み、GitHub上のJSONファイルを自動更新します。ここで指定したシート名に対応するデータだけを表示します（イベントが変わって新しいシートをコピーした場合は、ここのシート名だけ変更すればOK。Apps Script側の設定変更は不要）。Googleログインは不要です。60秒ごとに自動再取得。</p>
     </div>
   </div>
 
@@ -446,13 +450,15 @@ function startTracker(){
   if(actuals.length!==n)actuals=days.map(()=>({lead:0,na:0}));
 
   const ssJsonUrl=document.getElementById('ss-json-url').value.trim();
+  const ssSheet=document.getElementById('ss-sheet').value.trim();
 
   if(inputMode==='ss'){
     if(!ssJsonUrl){alert('データJSONのURLを入力してください');return;}
+    if(!ssSheet){alert('シート名を入力してください');return;}
     localStorage.setItem('exhibition-json-url',ssJsonUrl);
   }
 
-  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssJsonUrl};
+  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssJsonUrl,ssSheet};
 
   document.getElementById('setup-panel').style.display='none';
   document.getElementById('dashboard').style.display='block';
@@ -466,7 +472,7 @@ function startTracker(){
       📌 コンパクト表示（別ウィンドウ）`;
   }
 
-  if(inputMode==='ss'&&ssJsonUrl){
+  if(inputMode==='ss'&&ssJsonUrl&&ssSheet){
     document.getElementById('sync-bar').style.display='flex';
     fetchData();
     syncInterval=setInterval(fetchData,60000);
@@ -478,10 +484,11 @@ function startTracker(){
 
 // ===== データ取得（GAS→GitHubに書き出されたJSONをfetch） =====
 // GASはWebアプリとして公開しない（組織外公開ポリシーの影響を受けないため）。
-// 代わりにGAS側が時間主導トリガーでGitHub上のJSONファイルを定期更新しており、
-// ここではそのJSONを直接fetchするだけ。Googleログインは不要。
+// 代わりにGAS側が時間主導トリガーで「全シート」を読み、シート名をキーにした
+// JSONをGitHub上に定期更新している。ここではそのJSONをfetchし、
+// config.ssSheet に対応する部分だけを取り出して表示する。Googleログインは不要。
 function fetchData(){
-  if(!config||!config.ssJsonUrl)return;
+  if(!config||!config.ssJsonUrl||!config.ssSheet)return;
   setSyncStatus('loading','取得中...');
 
   const sep=config.ssJsonUrl.indexOf('?')>=0?'&':'?';
@@ -492,12 +499,14 @@ function fetchData(){
       if(!res.ok)throw new Error('HTTP '+res.status);
       return res.json();
     })
-    .then(data=>{
-      if(!data){setSyncStatus('err','空のレスポンスが返りました');return;}
+    .then(payload=>{
+      if(!payload||!payload.sheets){setSyncStatus('err','空のレスポンスが返りました');return;}
+      const data=payload.sheets[config.ssSheet];
+      if(!data){setSyncStatus('err','シートが見つかりません: '+config.ssSheet);return;}
       if(data.error){setSyncStatus('err','エラー: '+data.error);return;}
       parseGasData(data);
-      const t=data.updatedAt?new Date(data.updatedAt).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'';
-      setSyncStatus('ok','同期済み'+(t?'（データ更新: '+t+'）':''));
+      const t=payload.updatedAt?new Date(payload.updatedAt).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'';
+      setSyncStatus('ok','同期済み（'+config.ssSheet+'）'+(t?' データ更新: '+t:''));
     })
     .catch(err=>{
       setSyncStatus('err','取得失敗: '+err.message);
