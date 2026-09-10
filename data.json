@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T05:59:47.726Z",
+  "updatedAt": "2026-09-10T06:00:48.176Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -977,30 +977,25 @@
       "days": [
         {
           "leadTgt": 550,
-          "leadAct": 111111,
+          "leadAct": 0,
           "naTgt": 0,
-          "naAct": 100
+          "naAct": 0
         },
         {
           "leadTgt": 550,
-          "leadAct": 11,
+          "leadAct": 0,
           "naTgt": 0,
           "naAct": 0
         },
         {
           "leadTgt": 700,
-          "leadAct": 111,
+          "leadAct": 0,
           "naTgt": 0,
           "naAct": 0
         }
       ],
       "membersByDay": [
-        [
-          {
-            "name": "あ",
-            "na": 100
-          }
-        ],
+        [],
         [],
         []
       ]
