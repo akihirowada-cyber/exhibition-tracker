@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-10T06:00:48.176Z",
+  "updatedAt": "2026-09-10T05:52:53.228Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -977,25 +977,30 @@
       "days": [
         {
           "leadTgt": 550,
-          "leadAct": 0,
+          "leadAct": 111111,
           "naTgt": 0,
-          "naAct": 0
+          "naAct": 100
         },
         {
           "leadTgt": 550,
-          "leadAct": 0,
+          "leadAct": 11,
           "naTgt": 0,
           "naAct": 0
         },
         {
           "leadTgt": 700,
-          "leadAct": 0,
+          "leadAct": 111,
           "naTgt": 0,
           "naAct": 0
         }
       ],
       "membersByDay": [
-        [],
+        [
+          {
+            "name": "あ",
+            "na": 100
+          }
+        ],
         [],
         []
       ]
@@ -1060,11 +1065,11 @@
         [
           {
             "name": "渥美 颯真",
-            "na": 0.45
+            "na": 0.4
           },
           {
             "name": "一戸 杏月",
-            "na": 0.35294117647058826
+            "na": 0.4117647058823529
           },
           {
             "name": "蒲池 すみれ",
