@@ -219,28 +219,20 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
       </div>
     </div>
 
-    <!-- スプレッドシートモード（GAS経由・社内シート対応） -->
+    <!-- スプレッドシートモード（GASがGitHubへ書き出したJSONを取得） -->
     <div id="mode-ss" style="display:none;">
       <div class="form-group" style="margin-bottom:12px;">
-        <label>GAS Web App URL（デプロイURL）※1回入力すれば保存されます</label>
-        <input type="url" id="ss-gas-url" placeholder="https://script.google.com/macros/s/＿＿＿/exec">
-      </div>
-      <div class="form-group" style="margin-bottom:12px;">
-        <label>シート名（タブ名）※毎回変更可</label>
-        <input type="text" id="ss-sheet" placeholder="例: 新フォーマット（これをコピー） 修正済み">
-      </div>
-      <div class="form-group" style="margin-bottom:12px;">
-        <label>合言葉トークン（GAS側で設定した場合のみ・任意）</label>
-        <input type="text" id="ss-token" placeholder="GASのACCESS_TOKENと同じ値（未設定なら空欄）">
+        <label>データJSONのURL（GASが自動更新するファイル）※1回入力すれば保存されます</label>
+        <input type="url" id="ss-json-url" placeholder="https://<user>.github.io/<repo>/data.json">
       </div>
       <div class="ss-hint">
-        📌 <strong>取得セル：</strong><br>
-        リード目標 <code>B11/F11/J11</code>　リード実績 <code>C11/G11/K11</code><br>
+        📌 <strong>GAS取得セル（参考）：</strong><br>
+        リード目標 <code>B12/F12/J12</code>　リード実績 <code>C12/G12/K12</code><br>
         NA目標（日別） <code>B14/F14/J14</code>　NA実績 <code>C14/G14/K14</code><br>
         NA個人目標 <code>B7</code>（達成者判定に使用）<br>
-        担当者 <code>B29〜</code>　NA個人実績 <code>J29〜</code>
+        担当者 <code>B29〜</code>　NA個人実績 <code>K29〜</code>
       </div>
-      <p class="ss-note" style="margin-top:8px;">※ Sansanアカウントで認証済みのため、社内限定シートもそのまま読み込めます（JSONPで取得）。60秒ごとに自動更新。</p>
+      <p class="ss-note" style="margin-top:8px;">※ GAS側が時間主導トリガーでスプレッドシートを読み、GitHub上のJSONファイルを自動更新します。ここではそのJSONのURLを指定するだけで、Googleログインは不要です。60秒ごとに自動再取得。</p>
     </div>
   </div>
 
@@ -267,7 +259,7 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,.15)
     <div class="sync-dot" id="sync-dot"></div>
     <span class="sync-label" id="sync-label">スプレッドシート連携中</span>
     <span class="sync-time" id="sync-time"></span>
-    <button class="btn-sync" onclick="fetchFromGAS()">🔄 今すぐ更新</button>
+    <button class="btn-sync" onclick="fetchData()">🔄 今すぐ更新</button>
   </div>
 
   <!-- Time cards -->
@@ -424,12 +416,10 @@ function updateTargetTotal(key){
 document.getElementById('num-days').addEventListener('input',buildDayRows);
 buildDayRows();
 
-// 前回入力した GAS URL / トークンを復元
-(function restoreGasSettings(){
-  const savedUrl=localStorage.getItem('exhibition-gas-url');
-  if(savedUrl)document.getElementById('ss-gas-url').value=savedUrl;
-  const savedToken=localStorage.getItem('exhibition-gas-token');
-  if(savedToken)document.getElementById('ss-token').value=savedToken;
+// 前回入力したJSON URLを復元
+(function restoreJsonUrl(){
+  const saved=localStorage.getItem('exhibition-json-url');
+  if(saved)document.getElementById('ss-json-url').value=saved;
 })();
 
 // ===== START =====
@@ -455,19 +445,14 @@ function startTracker(){
   actuals=saved?JSON.parse(saved):days.map(()=>({lead:0,na:0}));
   if(actuals.length!==n)actuals=days.map(()=>({lead:0,na:0}));
 
-  const ssSheet=document.getElementById('ss-sheet').value.trim();
-  const gasUrl=document.getElementById('ss-gas-url').value.trim();
-  const gasToken=document.getElementById('ss-token').value.trim();
+  const ssJsonUrl=document.getElementById('ss-json-url').value.trim();
 
   if(inputMode==='ss'){
-    if(!gasUrl){alert('GAS Web App URL を入力してください');return;}
-    if(!ssSheet){alert('シート名を入力してください');return;}
-    // 次回のために保存
-    localStorage.setItem('exhibition-gas-url',gasUrl);
-    localStorage.setItem('exhibition-gas-token',gasToken);
+    if(!ssJsonUrl){alert('データJSONのURLを入力してください');return;}
+    localStorage.setItem('exhibition-json-url',ssJsonUrl);
   }
 
-  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssSheet,gasUrl,gasToken};
+  config={eventName:document.getElementById('event-name').value||'展示会',days,targets,mode:inputMode,ssJsonUrl};
 
   document.getElementById('setup-panel').style.display='none';
   document.getElementById('dashboard').style.display='block';
@@ -481,58 +466,42 @@ function startTracker(){
       📌 コンパクト表示（別ウィンドウ）`;
   }
 
-  if(inputMode==='ss'&&ssSheet&&gasUrl){
+  if(inputMode==='ss'&&ssJsonUrl){
     document.getElementById('sync-bar').style.display='flex';
-    fetchFromGAS();
-    syncInterval=setInterval(fetchFromGAS,60000);
+    fetchData();
+    syncInterval=setInterval(fetchData,60000);
   }
 
   buildTimeline();buildKpiTable();updateDashboard();
   timerInterval=setInterval(updateDashboard,1000);
 }
 
-// ===== GAS データ取得（JSONP / <script>タグ方式） =====
-// GitHub Pages からは google.script.run が使えないため、<script>タグで
-// GAS Web App を呼び出し、?callback=xxx の JSONP レスポンスを受け取る。
-// Sansanアカウントのログイン Cookie が <script> ロードと一緒に送られるため、
-// 社内限定（ドメイン制限）デプロイでも認証が通る。
-function fetchFromGAS(){
-  if(!config||!config.ssSheet||!config.gasUrl)return;
+// ===== データ取得（GAS→GitHubに書き出されたJSONをfetch） =====
+// GASはWebアプリとして公開しない（組織外公開ポリシーの影響を受けないため）。
+// 代わりにGAS側が時間主導トリガーでGitHub上のJSONファイルを定期更新しており、
+// ここではそのJSONを直接fetchするだけ。Googleログインは不要。
+function fetchData(){
+  if(!config||!config.ssJsonUrl)return;
   setSyncStatus('loading','取得中...');
 
-  const cbName='__gasCb_'+Date.now()+'_'+Math.floor(Math.random()*1e6);
-  const script=document.createElement('script');
-  let done=false;
+  const sep=config.ssJsonUrl.indexOf('?')>=0?'&':'?';
+  const url=config.ssJsonUrl+sep+'t='+Date.now(); // キャッシュ回避
 
-  const cleanup=()=>{
-    try{delete window[cbName];}catch(e){window[cbName]=undefined;}
-    if(script.parentNode)script.parentNode.removeChild(script);
-    clearTimeout(timer);
-  };
-
-  const timer=setTimeout(()=>{
-    if(done)return;done=true;cleanup();
-    setSyncStatus('err','タイムアウト：GAS URL・公開設定・ログイン状態を確認してください');
-  },15000);
-
-  window[cbName]=function(data){
-    if(done)return;done=true;cleanup();
-    if(!data){setSyncStatus('err','空のレスポンスが返りました');return;}
-    if(data.error){setSyncStatus('err','エラー: '+data.error);return;}
-    parseGasData(data);
-    setSyncStatus('ok','同期済み（'+config.ssSheet+'）');
-  };
-
-  script.onerror=()=>{
-    if(done)return;done=true;cleanup();
-    setSyncStatus('err','読み込み失敗：GAS URL が正しいか／Sansanにログイン済みか確認してください');
-  };
-
-  const sep=config.gasUrl.indexOf('?')>=0?'&':'?';
-  let url=config.gasUrl+sep+'sheet='+encodeURIComponent(config.ssSheet)+'&callback='+cbName;
-  if(config.gasToken)url+='&token='+encodeURIComponent(config.gasToken);
-  script.src=url;
-  document.body.appendChild(script);
+  fetch(url,{cache:'no-store'})
+    .then(res=>{
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      return res.json();
+    })
+    .then(data=>{
+      if(!data){setSyncStatus('err','空のレスポンスが返りました');return;}
+      if(data.error){setSyncStatus('err','エラー: '+data.error);return;}
+      parseGasData(data);
+      const t=data.updatedAt?new Date(data.updatedAt).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'}):'';
+      setSyncStatus('ok','同期済み'+(t?'（データ更新: '+t+'）':''));
+    })
+    .catch(err=>{
+      setSyncStatus('err','取得失敗: '+err.message);
+    });
 }
 
 function parseGasData(data){
