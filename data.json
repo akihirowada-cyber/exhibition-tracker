@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-14T06:17:48.369Z",
+  "updatedAt": "2026-09-14T06:48:48.007Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -2905,23 +2905,23 @@
         []
       ]
     },
-    "シート39": {
-      "naGoal": 0,
+    "ピボット テーブル 6": {
+      "naGoal": 82,
       "days": [
         {
-          "leadTgt": 0,
-          "leadAct": 0,
+          "leadTgt": 6,
+          "leadAct": 205,
           "naTgt": 0,
           "naAct": 0
         },
         {
-          "leadTgt": 0,
-          "leadAct": 0,
+          "leadTgt": 116,
+          "leadAct": 34.166666666666664,
           "naTgt": 0,
           "naAct": 0
         },
         {
-          "leadTgt": 0,
+          "leadTgt": 19.333333333333332,
           "leadAct": 0,
           "naTgt": 0,
           "naAct": 0
