@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T06:38:47.629Z",
+  "updatedAt": "2026-09-18T06:40:48.098Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 600,
           "leadAct": 374,
           "naTgt": 72,
-          "naAct": 16
+          "naAct": 17
         }
       ],
       "membersByDay": [
@@ -1154,7 +1154,7 @@
           },
           {
             "name": "小川 友花里",
-            "na": 0
+            "na": 1
           },
           {
             "name": "待谷 周作",
