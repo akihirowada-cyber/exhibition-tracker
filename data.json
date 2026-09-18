@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T07:43:47.798Z",
+  "updatedAt": "2026-09-18T07:35:51.411Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 600,
           "leadAct": 532,
           "naTgt": 72,
-          "naAct": 36
+          "naAct": 37
         }
       ],
       "membersByDay": [
@@ -1138,7 +1138,7 @@
           },
           {
             "name": "西田 直也",
-            "na": 1
+            "na": 2
           },
           {
             "name": "鶴山 皓己",
