@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T08:08:48.125Z",
+  "updatedAt": "2026-09-18T08:09:48.578Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 600,
           "leadAct": 652,
           "naTgt": 72,
-          "naAct": 39
+          "naAct": 40
         }
       ],
       "membersByDay": [
@@ -1158,7 +1158,7 @@
           },
           {
             "name": "待谷 周作",
-            "na": 0
+            "na": 1
           }
         ]
       ]
