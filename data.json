@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T03:04:48.097Z",
+  "updatedAt": "2026-09-18T03:06:47.715Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1017,9 +1017,9 @@
         },
         {
           "leadTgt": 600,
-          "leadAct": 172,
+          "leadAct": 186,
           "naTgt": 72,
-          "naAct": 0
+          "naAct": 1
         }
       ],
       "membersByDay": [
