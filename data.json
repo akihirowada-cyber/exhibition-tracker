@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T07:16:48.646Z",
+  "updatedAt": "2026-09-18T07:20:52.287Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 600,
           "leadAct": 532,
           "naTgt": 72,
-          "naAct": 24
+          "naAct": 31
         }
       ],
       "membersByDay": [
@@ -1118,7 +1118,7 @@
         [
           {
             "name": "加瀬 陽奈",
-            "na": 1
+            "na": 8
           },
           {
             "name": "石井 貫大",
