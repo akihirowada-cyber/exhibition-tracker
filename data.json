@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T03:07:47.825Z",
+  "updatedAt": "2026-09-18T03:03:49.358Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1017,9 +1017,9 @@
         },
         {
           "leadTgt": 600,
-          "leadAct": 186,
+          "leadAct": 0,
           "naTgt": 72,
-          "naAct": 1
+          "naAct": 0
         }
       ],
       "membersByDay": [
@@ -1130,7 +1130,7 @@
           },
           {
             "name": "山本 梨生",
-            "na": 1
+            "na": 0
           },
           {
             "name": "原野 陽平",
