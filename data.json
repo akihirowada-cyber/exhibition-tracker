@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T05:25:48.134Z",
+  "updatedAt": "2026-09-18T05:28:47.848Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1017,9 +1017,9 @@
         },
         {
           "leadTgt": 600,
-          "leadAct": 186,
+          "leadAct": 374,
           "naTgt": 72,
-          "naAct": 1
+          "naAct": 2
         }
       ],
       "membersByDay": [
@@ -1150,7 +1150,7 @@
           },
           {
             "name": "佐々木 唯杜",
-            "na": 0
+            "na": 1
           },
           {
             "name": "小川 友花里",
