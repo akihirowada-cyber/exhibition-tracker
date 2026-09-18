@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T07:25:48.331Z",
+  "updatedAt": "2026-09-18T07:29:47.676Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 600,
           "leadAct": 532,
           "naTgt": 72,
-          "naAct": 33
+          "naAct": 35
         }
       ],
       "membersByDay": [
@@ -1126,7 +1126,7 @@
           },
           {
             "name": "岸本 孝太",
-            "na": 0
+            "na": 2
           },
           {
             "name": "山本 梨生",
