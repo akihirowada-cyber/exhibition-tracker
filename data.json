@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T07:03:48.511Z",
+  "updatedAt": "2026-09-28T07:20:47.709Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -790,6 +790,34 @@
             "na": 0
           }
         ],
+        [],
+        []
+      ]
+    },
+    "2Q HOT計画": {
+      "naGoal": 0,
+      "days": [
+        {
+          "leadTgt": 0,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 0,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 0,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [],
         [],
         []
       ]
