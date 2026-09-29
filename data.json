@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-29T01:29:47.964Z",
+  "updatedAt": "2026-09-29T01:50:47.735Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1005,20 +1005,20 @@
       "days": [
         {
           "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 20
+          "leadAct": 500,
+          "naTgt": 110,
+          "naAct": 110
         },
         {
           "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
+          "leadAct": 500,
+          "naTgt": 110,
           "naAct": 0
         },
         {
           "leadTgt": 700,
-          "leadAct": 0,
-          "naTgt": 0,
+          "leadAct": 500,
+          "naTgt": 110,
           "naAct": 0
         }
       ],
@@ -1030,39 +1030,39 @@
           },
           {
             "name": "大石 泰生",
-            "na": 0
+            "na": 10
           },
           {
             "name": "寺谷 友希",
-            "na": 0
+            "na": 10
           },
           {
             "name": "崎野 公一郎",
-            "na": 0
+            "na": 10
           },
           {
             "name": "横山 洸土",
-            "na": 0
+            "na": 10
           },
           {
             "name": "田城 貴之",
-            "na": 0
+            "na": 10
           },
           {
             "name": "谷本 一輝",
-            "na": 0
+            "na": 10
           },
           {
             "name": "村上 泰健",
-            "na": 0
+            "na": 10
           },
           {
             "name": "成藤 奨悟",
-            "na": 0
+            "na": 10
           },
           {
             "name": "髙橋 佳瑶",
-            "na": 0
+            "na": 10
           },
           {
             "name": "根守 武尊",
