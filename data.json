@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-30T02:20:45.283Z",
+  "updatedAt": "2026-09-30T02:25:49.219Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1001,16 +1001,16 @@
       ]
     },
     "20260930-1001_AI博覧会Fukuoka": {
-      "naGoal": 11,
+      "naGoal": 8,
       "days": [
         {
-          "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
+          "leadTgt": 750,
+          "leadAct": 272,
+          "naTgt": 32,
           "naAct": 0
         },
         {
-          "leadTgt": 550,
+          "leadTgt": 750,
           "leadAct": 0,
           "naTgt": 0,
           "naAct": 0
@@ -1050,9 +1050,9 @@
       "days": [
         {
           "leadTgt": 1150,
-          "leadAct": 0,
+          "leadAct": 82,
           "naTgt": 110,
-          "naAct": 6
+          "naAct": 7
         },
         {
           "leadTgt": 1150,
@@ -1075,7 +1075,7 @@
           },
           {
             "name": "大石 泰生",
-            "na": 1
+            "na": 2
           },
           {
             "name": "寺谷 友希",
