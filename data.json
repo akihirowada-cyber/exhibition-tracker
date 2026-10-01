@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-01T04:55:46.177Z",
+  "updatedAt": "2026-10-01T05:00:45.239Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1013,7 +1013,7 @@
           "leadTgt": 750,
           "leadAct": 203,
           "naTgt": 32,
-          "naAct": 20
+          "naAct": 24
         },
         {
           "leadTgt": 700,
@@ -1083,7 +1083,7 @@
           "leadTgt": 1150,
           "leadAct": 169,
           "naTgt": 80,
-          "naAct": 30
+          "naAct": 33
         },
         {
           "leadTgt": 1200,
@@ -1174,7 +1174,7 @@
           },
           {
             "name": "池田 菜摘",
-            "na": 1
+            "na": 4
           },
           {
             "name": "菅井 隆成",
