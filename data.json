@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T02:20:45.892Z",
+  "updatedAt": "2026-10-02T02:25:45.344Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1089,7 +1089,7 @@
           "leadTgt": 1200,
           "leadAct": 500,
           "naTgt": 80,
-          "naAct": 15
+          "naAct": 14
         }
       ],
       "membersByDay": [
@@ -1216,7 +1216,7 @@
           },
           {
             "name": "高橋 隆一",
-            "na": 4
+            "na": 3
           },
           {
             "name": "増田 智耶",
