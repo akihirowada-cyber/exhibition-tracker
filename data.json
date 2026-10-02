@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-02T06:25:45.042Z",
+  "updatedAt": "2026-10-02T06:30:45.424Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1087,9 +1087,9 @@
         },
         {
           "leadTgt": 1200,
-          "leadAct": 576,
+          "leadAct": 727,
           "naTgt": 80,
-          "naAct": 65
+          "naAct": 66
         }
       ],
       "membersByDay": [
@@ -1196,7 +1196,7 @@
         [
           {
             "name": "加瀬 陽奈",
-            "na": 7
+            "na": 8
           },
           {
             "name": "亘理 魁",
