@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T06:20:44.735Z",
+  "updatedAt": "2026-10-07T06:25:46.768Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1066,9 +1066,9 @@
       "days": [
         {
           "leadTgt": 1000,
-          "leadAct": 519,
+          "leadAct": 703,
           "naTgt": 40,
-          "naAct": 10
+          "naAct": 11
         },
         {
           "leadTgt": 1000,
@@ -1087,7 +1087,7 @@
         [
           {
             "name": "鈴木 翔太",
-            "na": 6
+            "na": 7
           },
           {
             "name": "須藤 雄平",
