@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T01:45:45.175Z",
+  "updatedAt": "2026-10-07T01:50:45.131Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1000,6 +1000,34 @@
         []
       ]
     },
+    "20261007-09_マーケティングWeek": {
+      "naGoal": 8,
+      "days": [
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 56,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 48,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 700,
+          "leadAct": 0,
+          "naTgt": 56,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [],
+        [],
+        []
+      ]
+    },
     "20261007-09_ものづくりワールド大阪": {
       "naGoal": 11,
       "days": [
@@ -1050,76 +1078,6 @@
           }
         ],
         [],
-        []
-      ]
-    },
-    "20260930-1001_AI博覧会Fukuoka": {
-      "naGoal": 8,
-      "days": [
-        {
-          "leadTgt": 750,
-          "leadAct": 915,
-          "naTgt": 32,
-          "naAct": 29
-        },
-        {
-          "leadTgt": 750,
-          "leadAct": 778,
-          "naTgt": 32,
-          "naAct": 36
-        },
-        {
-          "leadTgt": 0,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        }
-      ],
-      "membersByDay": [
-        [
-          {
-            "name": "藤井 一起",
-            "na": 9
-          },
-          {
-            "name": "桑島 尚吾",
-            "na": 8
-          },
-          {
-            "name": "田上 侑樹",
-            "na": 6
-          },
-          {
-            "name": "白 光明（10:00~）",
-            "na": 4
-          },
-          {
-            "name": "篠木",
-            "na": 2
-          }
-        ],
-        [
-          {
-            "name": "白 光明",
-            "na": 8
-          },
-          {
-            "name": "有松 麻衣",
-            "na": 12
-          },
-          {
-            "name": "城丸 巧将",
-            "na": 7
-          },
-          {
-            "name": "崔 蒼英",
-            "na": 7
-          },
-          {
-            "name": "篠木",
-            "na": 2
-          }
-        ],
         []
       ]
     }
