@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-08T07:50:45.808Z",
+  "updatedAt": "2026-10-08T07:55:47.316Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1011,7 +1011,7 @@
         },
         {
           "leadTgt": 450,
-          "leadAct": 0,
+          "leadAct": 513,
           "naTgt": 48,
           "naAct": 50
         },
@@ -1082,7 +1082,7 @@
           "leadTgt": 1000,
           "leadAct": 846,
           "naTgt": 40,
-          "naAct": 29
+          "naAct": 30
         },
         {
           "leadTgt": 1000,
@@ -1141,7 +1141,7 @@
           },
           {
             "name": "小川 友花里",
-            "na": 2
+            "na": 3
           }
         ],
         []
