@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T07:10:45.131Z",
+  "updatedAt": "2026-10-09T07:15:45.433Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 500,
           "leadAct": 464,
           "naTgt": 56,
-          "naAct": 47
+          "naAct": 48
         }
       ],
       "membersByDay": [
@@ -1102,7 +1102,7 @@
         [
           {
             "name": "安部 寛之",
-            "na": 6
+            "na": 7
           },
           {
             "name": "根岸 俊介",
