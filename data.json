@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T07:00:45.473Z",
+  "updatedAt": "2026-10-09T07:05:45.956Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1154,7 +1154,7 @@
           "leadTgt": 1000,
           "leadAct": 852,
           "naTgt": 40,
-          "naAct": 10
+          "naAct": 11
         }
       ],
       "membersByDay": [
@@ -1213,7 +1213,7 @@
         [
           {
             "name": "杉本 慎吾",
-            "na": 0
+            "na": 1
           },
           {
             "name": "宜本 健悟",
