@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T10:00:45.301Z",
+  "updatedAt": "2026-10-09T10:05:45.337Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 500,
           "leadAct": 464,
           "naTgt": 56,
-          "naAct": 53
+          "naAct": 54
         }
       ],
       "membersByDay": [
@@ -1106,7 +1106,7 @@
           },
           {
             "name": "根岸 俊介",
-            "na": 10
+            "na": 11
           },
           {
             "name": "森田 航生",
