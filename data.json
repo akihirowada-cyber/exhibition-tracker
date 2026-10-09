@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T04:00:45.664Z",
+  "updatedAt": "2026-10-09T04:05:46.127Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 500,
           "leadAct": 0,
           "naTgt": 56,
-          "naAct": 17
+          "naAct": 19
         }
       ],
       "membersByDay": [
@@ -1126,7 +1126,7 @@
           },
           {
             "name": "藤代 尚人",
-            "na": 1
+            "na": 3
           },
           {
             "name": "和田 章広",
