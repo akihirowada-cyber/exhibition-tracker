@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T07:15:47.191Z",
+  "updatedAt": "2026-10-13T07:20:45.965Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1007,11 +1007,11 @@
           "leadTgt": 875,
           "leadAct": 1128,
           "naTgt": 48,
-          "naAct": 30
+          "naAct": 31
         },
         {
           "leadTgt": 875,
-          "leadAct": 0,
+          "leadAct": 105,
           "naTgt": 48,
           "naAct": 0
         },
@@ -1030,7 +1030,7 @@
           },
           {
             "name": "金城 宇宙",
-            "na": 1
+            "na": 2
           },
           {
             "name": "関口 生聖",
