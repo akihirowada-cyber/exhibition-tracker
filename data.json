@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T04:45:44.972Z",
+  "updatedAt": "2026-10-13T04:50:45.295Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1005,9 +1005,9 @@
       "days": [
         {
           "leadTgt": 875,
-          "leadAct": 414,
+          "leadAct": 640,
           "naTgt": 48,
-          "naAct": 11
+          "naAct": 12
         },
         {
           "leadTgt": 875,
@@ -1050,7 +1050,7 @@
           },
           {
             "name": "酒井",
-            "na": 0
+            "na": 1
           },
           {
             "name": "篠木",
