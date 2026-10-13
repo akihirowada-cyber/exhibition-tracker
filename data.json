@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T01:25:45.086Z",
+  "updatedAt": "2026-10-13T01:30:44.982Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1001,24 +1001,24 @@
       ]
     },
     "20261013-16_CEATEC2026": {
-      "naGoal": 11,
+      "naGoal": 8,
       "days": [
         {
           "leadTgt": 875,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         },
         {
           "leadTgt": 875,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         },
         {
           "leadTgt": 875,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         }
       ],
