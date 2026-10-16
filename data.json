@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T13:05:45.562Z",
+  "updatedAt": "2026-10-16T13:10:45.398Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1001,24 +1001,24 @@
       ]
     },
     "20261021-23_Japan DX Week": {
-      "naGoal": 11,
+      "naGoal": 10,
       "days": [
         {
           "leadTgt": 1300,
           "leadAct": 0,
-          "naTgt": 187,
+          "naTgt": 170,
           "naAct": 0
         },
         {
           "leadTgt": 1300,
           "leadAct": 0,
-          "naTgt": 187,
+          "naTgt": 170,
           "naAct": 0
         },
         {
           "leadTgt": 1300,
           "leadAct": 0,
-          "naTgt": 187,
+          "naTgt": 170,
           "naAct": 0
         }
       ],
