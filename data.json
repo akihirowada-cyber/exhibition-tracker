@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T07:30:45.836Z",
+  "updatedAt": "2026-10-22T07:35:46.814Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1005,9 +1005,9 @@
       "days": [
         {
           "leadTgt": 300,
-          "leadAct": 278,
+          "leadAct": 390,
           "naTgt": 32,
-          "naAct": 3
+          "naAct": 12
         },
         {
           "leadTgt": 300,
@@ -1046,7 +1046,7 @@
           },
           {
             "name": "太田 裕幸",
-            "na": 0
+            "na": 9
           }
         ],
         [],
