@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-27T01:05:46.922Z",
+  "updatedAt": "2026-10-27T01:10:45.883Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1000,6 +1000,34 @@
         []
       ]
     },
+    "20261029-30_AI-PAX大阪": {
+      "naGoal": 11,
+      "days": [
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 700,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [],
+        [],
+        []
+      ]
+    },
     "20261022-23_営業・マーケDXPO 福岡": {
       "naGoal": 8,
       "days": [
@@ -1073,76 +1101,6 @@
           {
             "name": "太田 裕幸",
             "na": 7
-          }
-        ],
-        []
-      ]
-    },
-    "20261029_Brex関西": {
-      "naGoal": 8,
-      "days": [
-        {
-          "leadTgt": 350,
-          "leadAct": 0,
-          "naTgt": 32,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 350,
-          "leadAct": 0,
-          "naTgt": 32,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 700,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        }
-      ],
-      "membersByDay": [
-        [
-          {
-            "name": "松永 洋紀",
-            "na": 0
-          },
-          {
-            "name": "森山 理子",
-            "na": 0
-          },
-          {
-            "name": "上井 伸介",
-            "na": 0
-          },
-          {
-            "name": "東 恭聖",
-            "na": 0
-          },
-          {
-            "name": "根守 武尊",
-            "na": 0
-          }
-        ],
-        [
-          {
-            "name": "蔡 嗣閣",
-            "na": 0
-          },
-          {
-            "name": "小林 千紘",
-            "na": 0
-          },
-          {
-            "name": "上井 伸介",
-            "na": 0
-          },
-          {
-            "name": "東 恭聖",
-            "na": 0
-          },
-          {
-            "name": "根守 武尊",
-            "na": 0
           }
         ],
         []
