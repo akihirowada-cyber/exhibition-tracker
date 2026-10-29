@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-29T09:25:45.765Z",
+  "updatedAt": "2026-10-29T09:30:46.471Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1001,18 +1001,18 @@
       ]
     },
     "20261029-30_AI-PAX大阪": {
-      "naGoal": 11,
+      "naGoal": 8,
       "days": [
         {
           "leadTgt": 550,
           "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 30
+          "naTgt": 24,
+          "naAct": 35
         },
         {
           "leadTgt": 550,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 24,
           "naAct": 0
         },
         {
@@ -1039,6 +1039,10 @@
           {
             "name": "村澤 春樹（10:00-11:30）",
             "na": 3
+          },
+          {
+            "name": "蔡 嗣閣（16:00-）",
+            "na": 5
           },
           {
             "name": "篠木",
