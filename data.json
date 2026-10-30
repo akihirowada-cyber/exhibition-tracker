@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-30T05:10:45.396Z",
+  "updatedAt": "2026-10-30T05:15:55.831Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1007,13 +1007,13 @@
           "leadTgt": 0,
           "leadAct": 0,
           "naTgt": 24,
-          "naAct": 35
+          "naAct": 36
         },
         {
           "leadTgt": 0,
           "leadAct": 0,
           "naTgt": 24,
-          "naAct": 0
+          "naAct": 4
         },
         {
           "leadTgt": 0,
@@ -1026,7 +1026,7 @@
         [
           {
             "name": "山本 藍",
-            "na": 8
+            "na": 9
           },
           {
             "name": "裏崎 宏河",
@@ -1064,7 +1064,7 @@
           },
           {
             "name": "篠木",
-            "na": 0
+            "na": 4
           }
         ],
         []
