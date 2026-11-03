@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-03T07:40:46.573Z",
+  "updatedAt": "2026-11-03T07:45:46.582Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1000,6 +1000,34 @@
         []
       ]
     },
+    "20261104-06_DX総合EXPO": {
+      "naGoal": 8,
+      "days": [
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 88,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 88,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 700,
+          "leadAct": 0,
+          "naTgt": 88,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [],
+        [],
+        []
+      ]
+    },
     "20261029-30_AI-PAX大阪": {
       "naGoal": 8,
       "days": [
@@ -1068,84 +1096,6 @@
           },
           {
             "name": "篠木",
-            "na": 7
-          }
-        ],
-        []
-      ]
-    },
-    "20261022-23_営業・マーケDXPO 福岡": {
-      "naGoal": 8,
-      "days": [
-        {
-          "leadTgt": 300,
-          "leadAct": 404,
-          "naTgt": 32,
-          "naAct": 28
-        },
-        {
-          "leadTgt": 300,
-          "leadAct": 514,
-          "naTgt": 32,
-          "naAct": 39
-        },
-        {
-          "leadTgt": 0,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        }
-      ],
-      "membersByDay": [
-        [
-          {
-            "name": "白 光明",
-            "na": 5
-          },
-          {
-            "name": "藤井 一起",
-            "na": 3
-          },
-          {
-            "name": "桑島 尚吾",
-            "na": 3
-          },
-          {
-            "name": "松本 将之",
-            "na": 5
-          },
-          {
-            "name": "小川 友花里",
-            "na": 3
-          },
-          {
-            "name": "太田 裕幸",
-            "na": 9
-          }
-        ],
-        [
-          {
-            "name": "田上 侑樹",
-            "na": 4
-          },
-          {
-            "name": "本山 朱奈",
-            "na": 8
-          },
-          {
-            "name": "崔 蒼英",
-            "na": 7
-          },
-          {
-            "name": "城丸 巧将",
-            "na": 7
-          },
-          {
-            "name": "小川 友花里",
-            "na": 6
-          },
-          {
-            "name": "太田 裕幸",
             "na": 7
           }
         ],
