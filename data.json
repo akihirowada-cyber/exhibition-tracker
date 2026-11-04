@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-04T07:55:45.281Z",
+  "updatedAt": "2026-11-04T08:00:45.731Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1005,9 +1005,9 @@
       "days": [
         {
           "leadTgt": 550,
-          "leadAct": 411,
+          "leadAct": 421,
           "naTgt": 88,
-          "naAct": 49
+          "naAct": 51
         },
         {
           "leadTgt": 550,
@@ -1058,7 +1058,7 @@
           },
           {
             "name": "木村 友哉",
-            "na": 8
+            "na": 10
           },
           {
             "name": "小出 駿",
