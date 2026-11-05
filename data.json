@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-05T04:15:45.452Z",
+  "updatedAt": "2026-11-05T04:21:12.974Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1011,9 +1011,9 @@
         },
         {
           "leadTgt": 550,
-          "leadAct": 0,
+          "leadAct": 219,
           "naTgt": 88,
-          "naAct": 1
+          "naAct": 2
         },
         {
           "leadTgt": 700,
@@ -1080,7 +1080,7 @@
         [
           {
             "name": "浅川 駿",
-            "na": 0
+            "na": 1
           },
           {
             "name": "藤代 尚人",
