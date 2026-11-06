@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T03:20:45.209Z",
+  "updatedAt": "2026-11-06T03:25:45.294Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1016,10 +1016,10 @@
           "naAct": 62
         },
         {
-          "leadTgt": 700,
-          "leadAct": 243,
+          "leadTgt": 550,
+          "leadAct": 282,
           "naTgt": 88,
-          "naAct": 9
+          "naAct": 10
         }
       ],
       "membersByDay": [
@@ -1142,7 +1142,7 @@
           },
           {
             "name": "長谷川 遥斗",
-            "na": 2
+            "na": 3
           },
           {
             "name": "増田 智耶",
