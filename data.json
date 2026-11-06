@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T07:00:45.326Z",
+  "updatedAt": "2026-11-06T07:05:45.613Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -972,34 +972,6 @@
         []
       ]
     },
-    "★新フォーマット（これをコピー）": {
-      "naGoal": 11,
-      "days": [
-        {
-          "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 700,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        }
-      ],
-      "membersByDay": [
-        [],
-        [],
-        []
-      ]
-    },
     "20261104-06_DX総合EXPO": {
       "naGoal": 8,
       "days": [
@@ -1189,6 +1161,34 @@
             "na": 2
           }
         ]
+      ]
+    },
+    "★新フォーマット（これをコピー）": {
+      "naGoal": 11,
+      "days": [
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 700,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [],
+        [],
+        []
       ]
     },
     "20261029-30_AI-PAX大阪": {
