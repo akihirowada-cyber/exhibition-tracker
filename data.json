@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T09:40:45.903Z",
+  "updatedAt": "2026-11-06T09:45:49.542Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -991,7 +991,7 @@
           "leadTgt": 550,
           "leadAct": 757,
           "naTgt": 88,
-          "naAct": 66
+          "naAct": 67
         }
       ],
       "membersByDay": [
@@ -1130,7 +1130,7 @@
           },
           {
             "name": "岡部 莉奈",
-            "na": 1
+            "na": 2
           },
           {
             "name": "美濃部 遼",
