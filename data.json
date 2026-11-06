@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T05:05:45.187Z",
+  "updatedAt": "2026-11-06T05:10:46.739Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1019,7 +1019,7 @@
           "leadTgt": 550,
           "leadAct": 354,
           "naTgt": 88,
-          "naAct": 31
+          "naAct": 32
         }
       ],
       "membersByDay": [
@@ -1174,7 +1174,7 @@
           },
           {
             "name": "五十嵐 佑大",
-            "na": 5
+            "na": 6
           },
           {
             "name": "末廣",
