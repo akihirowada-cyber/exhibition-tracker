@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-09T09:10:44.777Z",
+  "updatedAt": "2026-11-09T09:15:44.832Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1191,77 +1191,31 @@
         []
       ]
     },
-    "20261029-30_AI-PAX大阪": {
-      "naGoal": 8,
+    "★新フォーマット（これをコピー） のコピー": {
+      "naGoal": 11,
       "days": [
         {
-          "leadTgt": 0,
+          "leadTgt": 550,
           "leadAct": 0,
-          "naTgt": 24,
-          "naAct": 36
+          "naTgt": 0,
+          "naAct": 0
         },
         {
-          "leadTgt": 0,
+          "leadTgt": 550,
           "leadAct": 0,
-          "naTgt": 24,
-          "naAct": 19
+          "naTgt": 0,
+          "naAct": 0
         },
         {
-          "leadTgt": 0,
+          "leadTgt": 700,
           "leadAct": 0,
           "naTgt": 0,
           "naAct": 0
         }
       ],
       "membersByDay": [
-        [
-          {
-            "name": "山本 藍",
-            "na": 9
-          },
-          {
-            "name": "裏崎 宏河",
-            "na": 8
-          },
-          {
-            "name": "岡橋 宇惟",
-            "na": 7
-          },
-          {
-            "name": "村澤 春樹（10:00-11:30）",
-            "na": 3
-          },
-          {
-            "name": "蔡 嗣閣（16:00-）",
-            "na": 5
-          },
-          {
-            "name": "篠木",
-            "na": 4
-          }
-        ],
-        [
-          {
-            "name": "永井 勇吾",
-            "na": 3
-          },
-          {
-            "name": "村澤 春樹",
-            "na": 6
-          },
-          {
-            "name": "小野寺 二朗",
-            "na": 2
-          },
-          {
-            "name": "杉本",
-            "na": 1
-          },
-          {
-            "name": "篠木",
-            "na": 7
-          }
-        ],
+        [],
+        [],
         []
       ]
     }
