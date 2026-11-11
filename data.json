@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-11T00:00:45.326Z",
+  "updatedAt": "2026-11-11T00:05:46.774Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1192,24 +1192,24 @@
       ]
     },
     "20261111-13_NexTech Week秋": {
-      "naGoal": 11,
+      "naGoal": 8,
       "days": [
         {
-          "leadTgt": 550,
+          "leadTgt": 850,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         },
         {
-          "leadTgt": 550,
+          "leadTgt": 850,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         },
         {
-          "leadTgt": 700,
+          "leadTgt": 900,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         }
       ],
