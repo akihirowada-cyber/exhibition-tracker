@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-13T05:00:46.626Z",
+  "updatedAt": "2026-11-13T05:05:45.788Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1208,9 +1208,9 @@
         },
         {
           "leadTgt": 900,
-          "leadAct": 406,
+          "leadAct": 541,
           "naTgt": 48,
-          "naAct": 36
+          "naAct": 40
         }
       ],
       "membersByDay": [
@@ -1297,7 +1297,7 @@
           },
           {
             "name": "久門 瑞季",
-            "na": 2
+            "na": 6
           },
           {
             "name": "三輪 紗也花",
