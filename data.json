@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-13T08:50:45.204Z",
+  "updatedAt": "2026-11-13T08:55:45.181Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -1210,7 +1210,7 @@
           "leadTgt": 900,
           "leadAct": 930,
           "naTgt": 48,
-          "naAct": 67
+          "naAct": 68
         }
       ],
       "membersByDay": [
@@ -1289,7 +1289,7 @@
         [
           {
             "name": "長谷川 遥斗",
-            "na": 8
+            "na": 9
           },
           {
             "name": "杉山 真穂",
