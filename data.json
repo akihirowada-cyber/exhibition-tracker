@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17T07:10:56.009Z",
+  "updatedAt": "2026-11-17T07:15:45.525Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -972,6 +972,117 @@
         []
       ]
     },
+    "20261118-20_Japan IT Week 関西": {
+      "naGoal": 0,
+      "days": [
+        {
+          "leadTgt": 0,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 0,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 0,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [
+          {
+            "name": "永井 勇吾",
+            "na": 0
+          },
+          {
+            "name": "坂本 佳永",
+            "na": 0
+          },
+          {
+            "name": "村澤 春樹",
+            "na": 0
+          },
+          {
+            "name": "渡部 麻斗",
+            "na": 0
+          },
+          {
+            "name": "中山 由貴",
+            "na": 0
+          },
+          {
+            "name": "太田 真寛",
+            "na": 0
+          }
+        ],
+        [
+          {
+            "name": "松永 洋紀",
+            "na": 0
+          },
+          {
+            "name": "裏崎 宏河",
+            "na": 0
+          },
+          {
+            "name": "石井 真人",
+            "na": 0
+          },
+          {
+            "name": "山本 藍",
+            "na": 0
+          },
+          {
+            "name": "岡橋 宇惟",
+            "na": 0
+          },
+          {
+            "name": "福田 達也",
+            "na": 0
+          },
+          {
+            "name": "田畑 怜華",
+            "na": 0
+          }
+        ],
+        [
+          {
+            "name": "蔡 嗣閣",
+            "na": 0
+          },
+          {
+            "name": "杉本 慎吾",
+            "na": 0
+          },
+          {
+            "name": "吉岡 真弘",
+            "na": 0
+          },
+          {
+            "name": "三好 勇輝",
+            "na": 0
+          },
+          {
+            "name": "加藤 貴史",
+            "na": 0
+          },
+          {
+            "name": "江口 佑介",
+            "na": 0
+          },
+          {
+            "name": "辻 健斗",
+            "na": 0
+          }
+        ]
+      ]
+    },
     "20261104-06_DX総合EXPO": {
       "naGoal": 8,
       "days": [
@@ -1164,34 +1275,6 @@
       ]
     },
     "★新フォーマット（これをコピー）": {
-      "naGoal": 11,
-      "days": [
-        {
-          "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 550,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 700,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        }
-      ],
-      "membersByDay": [
-        [],
-        [],
-        []
-      ]
-    },
-    "20261118-20_Japan home show": {
       "naGoal": 11,
       "days": [
         {
