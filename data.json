@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T04:55:45.693Z",
+  "updatedAt": "2026-11-25T05:00:45.916Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -822,6 +822,34 @@
         []
       ]
     },
+    "20261209-10_イプロスAI-産業World": {
+      "naGoal": 11,
+      "days": [
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 550,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        },
+        {
+          "leadTgt": 700,
+          "leadAct": 0,
+          "naTgt": 0,
+          "naAct": 0
+        }
+      ],
+      "membersByDay": [
+        [],
+        [],
+        []
+      ]
+    },
     "20261125-27_ファクトリーイノベーションWeek": {
       "naGoal": 8,
       "days": [
@@ -1075,71 +1103,6 @@
       "membersByDay": [
         [],
         [],
-        []
-      ]
-    },
-    "20261118-19_SWTT": {
-      "naGoal": 0,
-      "days": [
-        {
-          "leadTgt": 0,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 0,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        },
-        {
-          "leadTgt": 0,
-          "leadAct": 0,
-          "naTgt": 0,
-          "naAct": 0
-        }
-      ],
-      "membersByDay": [
-        [],
-        [
-          {
-            "name": "梶谷 麻佑子",
-            "na": 0.6875
-          },
-          {
-            "name": "苅谷 将宏",
-            "na": 0.08695652173913043
-          },
-          {
-            "name": "森 祥行",
-            "na": 0.42857142857142855
-          },
-          {
-            "name": "竹内 瞭",
-            "na": 0.4
-          },
-          {
-            "name": "森本 理紗子",
-            "na": 0.3333333333333333
-          },
-          {
-            "name": "綿貫 亮太",
-            "na": 0.375
-          },
-          {
-            "name": "本間",
-            "na": 0
-          },
-          {
-            "name": "QR①",
-            "na": 0
-          },
-          {
-            "name": "QR②",
-            "na": 0
-          }
-        ],
         []
       ]
     }
