@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T05:30:45.196Z",
+  "updatedAt": "2026-11-25T05:35:45.224Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -855,9 +855,9 @@
       "days": [
         {
           "leadTgt": 800,
-          "leadAct": 0,
+          "leadAct": 577,
           "naTgt": 40,
-          "naAct": 14
+          "naAct": 15
         },
         {
           "leadTgt": 800,
@@ -876,7 +876,7 @@
         [
           {
             "name": "長坂 將生",
-            "na": 0
+            "na": 1
           },
           {
             "name": "森岡 敬之",
