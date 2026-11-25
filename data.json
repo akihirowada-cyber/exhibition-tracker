@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25T01:20:45.668Z",
+  "updatedAt": "2026-11-25T01:25:45.042Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -823,24 +823,24 @@
       ]
     },
     "20261125-27_ファクトリーイノベーションWeek": {
-      "naGoal": 11,
+      "naGoal": 8,
       "days": [
         {
           "leadTgt": 550,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 40,
           "naAct": 0
         },
         {
           "leadTgt": 550,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 40,
           "naAct": 0
         },
         {
           "leadTgt": 700,
           "leadAct": 0,
-          "naTgt": 0,
+          "naTgt": 48,
           "naAct": 0
         }
       ],
