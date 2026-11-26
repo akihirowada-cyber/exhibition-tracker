@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T04:40:45.274Z",
+  "updatedAt": "2026-11-26T04:45:45.417Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -861,9 +861,9 @@
         },
         {
           "leadTgt": 800,
-          "leadAct": 318,
+          "leadAct": 499,
           "naTgt": 40,
-          "naAct": 18
+          "naAct": 21
         },
         {
           "leadTgt": 900,
@@ -902,7 +902,7 @@
         [
           {
             "name": "愛澤 友里",
-            "na": 0
+            "na": 3
           },
           {
             "name": "山本",
