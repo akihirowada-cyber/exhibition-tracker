@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T04:25:48.010Z",
+  "updatedAt": "2026-11-27T04:30:45.663Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -869,7 +869,7 @@
           "leadTgt": 900,
           "leadAct": 0,
           "naTgt": 48,
-          "naAct": 9
+          "naAct": 19
         }
       ],
       "membersByDay": [
@@ -940,15 +940,15 @@
           },
           {
             "name": "岩辺 達也",
-            "na": 0
+            "na": 4
           },
           {
             "name": "山本 洋平",
-            "na": 0
+            "na": 3
           },
           {
             "name": "金森 千絵美",
-            "na": 0
+            "na": 3
           },
           {
             "name": "太田 裕幸",
