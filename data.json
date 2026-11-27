@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T07:15:47.435Z",
+  "updatedAt": "2026-11-27T07:20:46.144Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -867,9 +867,9 @@
         },
         {
           "leadTgt": 900,
-          "leadAct": 1003,
+          "leadAct": 1238,
           "naTgt": 48,
-          "naAct": 39
+          "naAct": 40
         }
       ],
       "membersByDay": [
@@ -940,7 +940,7 @@
           },
           {
             "name": "岩辺 達也",
-            "na": 5
+            "na": 6
           },
           {
             "name": "山本 洋平",
