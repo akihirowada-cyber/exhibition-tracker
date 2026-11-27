@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T03:56:05.440Z",
+  "updatedAt": "2026-11-27T04:00:45.558Z",
   "sheets": {
     "目次": {
       "naGoal": 0,
@@ -869,7 +869,7 @@
           "leadTgt": 900,
           "leadAct": 0,
           "naTgt": 48,
-          "naAct": 0
+          "naAct": 5
         }
       ],
       "membersByDay": [
@@ -936,7 +936,7 @@
           },
           {
             "name": "中村 直樹",
-            "na": 0
+            "na": 5
           },
           {
             "name": "岩辺 達也",
